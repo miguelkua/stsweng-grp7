@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect("mongodv://localhost:27017/registration").then(() => {
+mongoose.connect("mongodb://127.0.0.1:27017/registration").then(() => {
     console.log("Connection successful");
 }).catch((e) => {
     console.log("No connection");
@@ -8,7 +8,7 @@ mongoose.connect("mongodv://localhost:27017/registration").then(() => {
 
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true
     },
