@@ -8,10 +8,14 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
   try {
-    const check = await User.findOne({ username: req.body.username });
+    const user = await User.findOne({ username: req.body.username });
 
-    if (check && check.password === req.body.password) {
-      res.render('home');
+    if (user && user.password === req.body.password) {
+      // Store the username in the session upon successful login
+      req.session.username = user.username;
+
+      // Redirect to the home page after successful login
+      res.redirect('/');
     } else {
       res.status(400).send('Invalid Login Details');
     }

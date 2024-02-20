@@ -21,7 +21,9 @@ router.post('/', async (req, res) => {
     };
 
     await User.create(userData);
-    res.render('home');
+
+    // Redirect to the home page after successful signup
+    res.redirect('/home');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

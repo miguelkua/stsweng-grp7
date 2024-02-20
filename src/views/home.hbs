@@ -6,9 +6,15 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Home</h1>
-
-    <a href="/login">Login</a>
-    <a href="/signup">Sign Up</a>
+    {{#if isAuthenticated}}
+        <h1>Welcome to the Home Page, {{ username }}!</h1>
+        <!-- Other authenticated user content -->
+        <a href="/logout">Sign Out</a>
+    {{else}}
+        <h1>Welcome to the Home Page! {{ username }}</h1>
+        <!-- Other content for non-authenticated users -->
+        <a href="/login">Login</a>
+        <a href="/signup">Sign Up</a>
+    {{/if}}
 </body>
 </html>
