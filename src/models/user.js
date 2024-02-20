@@ -8,7 +8,15 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true
-  }
+  },
+  phone: {
+    type: String, // You can change the type based on your specific requirements
+    required: true
+  },
+  email: {
+    type: String,
+    required: true
+  },
 });
 
 const User = mongoose.model("User", userSchema);
