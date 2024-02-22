@@ -20,10 +20,12 @@ router.post('/', async (req, res) => {
       phone,
     };
 
-    await User.create(userData);
+    const User = await User.create(userData);
+
+    req.session.username = User.username;
 
     // Redirect to the home page after successful signup
-    res.redirect('/home');
+    res.redirect('/');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');

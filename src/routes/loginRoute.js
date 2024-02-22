@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const bcrypt = require('bcrypt');
 
 router.get('/', (req, res) => {
   res.render('login');
@@ -10,7 +11,7 @@ router.post('/', async (req, res) => {
   try {
     const user = await User.findOne({ username: req.body.username });
 
-    if (user && user.password === req.body.password) {
+    if (user && await bcrypt.compare(req.body.password, user.password)) {
       // Store the username in the session upon successful login
       req.session.username = user.username;
 
