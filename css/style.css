@@ -25,3 +25,8 @@ body {
     max-width: 500px
 }
 
+#onclick-login a{
+    color: white;
+    text-decoration: none;
+}
+
