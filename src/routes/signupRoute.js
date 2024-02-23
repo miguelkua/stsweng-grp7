@@ -20,9 +20,9 @@ router.post('/', async (req, res) => {
       phone,
     };
 
-    const User = await User.create(userData);
+    const NewUser = await User.create(userData);
 
-    req.session.username = User.username;
+    req.session.username = NewUser.username;
 
     // Redirect to the home page after successful signup
     res.redirect('/');

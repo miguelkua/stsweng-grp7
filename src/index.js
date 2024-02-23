@@ -8,6 +8,7 @@ const homeRoute = require('./routes/homeRoute');
 const loginRoute = require('./routes/loginRoute');
 const signupRoute = require('./routes/signupRoute');
 const logoutRoute = require('./routes/logoutRoute');
+const postListingRoute = require('./routes/postListingRoute'); // Import the new route
 
 connectMongoDB();
 
@@ -32,6 +33,7 @@ app.use('/', homeRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);
+app.use('/post-listing', postListingRoute); // Use the new route
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

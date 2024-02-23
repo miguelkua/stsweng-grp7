@@ -10,6 +10,8 @@
         <h1>Welcome to the Home Page, {{ username }}!</h1>
         <!-- Other authenticated user content -->
         <a href="/logout">Sign Out</a>
+
+        <a href="/post-listing">Post Listing</a>
     {{else}}
         <h1>Welcome to the Home Page! {{ username }}</h1>
         <!-- Other content for non-authenticated users -->
@@ -17,6 +19,6 @@
         <a href="/signup">Sign Up</a>
     {{/if}}
 
-    
+
 </body>
 </html>
