@@ -1,0 +1,27 @@
+body {
+    background-color: rgb(201, 201, 201) !important; /* Use !important to ensure override */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+#navbar{
+    background-color: #1C2E42;
+}
+
+#navbar #dropdown-options{
+    background-color: black;
+}
+
+#navbar a{
+    color: #D6B02E;
+}   
+
+/* login */
+#container1{
+    margin-top: 5%;
+    text-align: center;
+}
+
+#navbarsearch{
+    max-width: 500px
+}
+
