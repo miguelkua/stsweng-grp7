@@ -1,5 +1,4 @@
 body {
-    background-color: rgb(201, 201, 201) !important; /* Use !important to ensure override */
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -30,3 +29,10 @@ body {
     text-decoration: none;
 }
 
+
+.cart-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 100;
+}

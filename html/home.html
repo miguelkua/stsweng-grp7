@@ -40,84 +40,150 @@
             </div>
           </nav>
 
-        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-            <div class="offcanvas-header">
-              <h5 id="offcanvasRightLabel">Offcanvas right</h5>
-              <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              ...
-            </div>
-          </div>
 
-        <!-- Filter and Item Display -->
-        <div class="container-lg my-3">
-            <div class="row">
-                <!--   Filters Bar -->
-              <div class="col-3">
-                <div class="p-5 bg-primary text-light">Filters</div>
+    <!-- Main content -->
+    <div class="container mt-3">
+      <div class="row">
+        <button class="btn btn-primary d-block d-md-none my-2" type="button" data-bs-toggle="collapse" data-bs-target="#filterSidebar" aria-expanded="false" aria-controls="filterSidebar">
+          Filter Options
+        </button>
+          <!-- Filter column -->
+          <div class="col-md-3">
+            <div class="d-md-block" id="filterSidebar">
+            <h5>Filter by</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterCategory">
+                <label class="form-check-label" for="filterCategory">Category</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterLocation">
+                <label class="form-check-label" for="filterLocation">Location</label>
+            </div>
+            <!-- Add more filters -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterNewArrivals">
+                <label class="form-check-label" for="filterNewArrivals">New Arrivals</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterBestSellers">
+                <label class="form-check-label" for="filterBestSellers">Best Sellers</label>
+            </div>
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="maxPriceCheck" data-bs-toggle="collapse" data-bs-target="#maxPriceCollapse" aria-expanded="false" aria-controls="maxPriceCollapse">
+                <label class="form-check-label" for="maxPriceCheck">Max Price</label>
               </div>
-              <!-- Item Display -->
-              <div class="col">
-                <div class="p-5 bg-primary text-light">
-                  <div class="row mb-3"> <!-- 1 Row/4 Items -->
-                    <div class="col">
-                      <div class="containter-lg item bg-secondary"> <!-- Item #1 -->
-                        <img src="assets/toy.jpg" alt="item_image" class="img-thumbnail img-fluid" style="max-width: 100%;">
-                        <p class="item_name mb-0">Computer Component1</p>
-                        <p class="item_price h4">&#8369 60</p>
-                        <p class="item_location small">Mandaluyong, Metro Manila</p>
-                      </div>
-                    </div>
-                    <div class="col">
-                        <div class="containter-lg item bg-secondary"> <!-- Item #2 -->
-                            <img src="assets/toy.jpg" alt="item_image" class="img-thumbnail img-fluid" style="max-width: 100%;">
-                            <p class="item_name mb-0">Computer Component2</p>
-                            <p class="item_price h4">&#8369 1200</p>
-                            <p class="item_location small">Mandaluyong, Metro Manila</p>
-                          </div>
-                    </div>
-                    <div class="col">
-                        <div class="containter-lg item bg-secondary">
-                            <img src="assets/toy.jpg" alt="item_image" class="img-thumbnail img-fluid" style="max-width: 100%;">
-                            <p class="item_name mb-0">Computer Component3</p>
-                            <p class="item_price h4">&#8369 420</p>
-                            <p class="item_location small">Mandaluyong, Metro Manila</p>
-                          </div>
-                    </div>
-        
-                    <div class="col">
-                        <div class="containter-lg item bg-secondary">
-                            <img src="assets/toy.jpg" alt="item_image" class="img-thumbnail img-fluid" style="max-width: 100%;">
-                            <p class="item_name mb-0">Computer Component4</p>
-                            <p class="item_price h4">&#8369 75</p>
-                            <p class="item_location small">Mandaluyong, Metro Manila</p>
-                          </div>
-                    </div>
-                  </div>
-
-                  <div class="row row mb-3"> <!-- 1 Row/4 Items -->
-                    <div class="col">
-                      <div class="p-3 bg-secondary text-light"> Nested Column 1 </div>
-                    </div>
-                    <div class="col">
-                      <div class="p-3 bg-secondary text-light">Nested Column 2</div>
-                    </div>
-                    <div class="col">
-                      <div class="p-3 bg-secondary text-light">Nested Column 3</div>
-                    </div>
-        
-                    <div class="col">
-                      <div class="p-3 bg-secondary text-light">Nested Column 4</div>
-                    </div>
-                  </div>
-                  
+              <div class="collapse" id="maxPriceCollapse">
+                <div class="mt-2">
+                  <input type="number" class="form-control" id="maxPriceInput" placeholder="Enter max price" disabled>
                 </div>
-                <!-- Nested grid inside col 2 -->
               </div>
             </div>
+            <!-- Add as many filters as needed -->
+        </div>
+        </div>
+          
+          <div class="col-md-9">
+            <!-- Row for the product cards -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Product cards -->
+                <div class="col">
+                    <div class="card h-100" id="item1">
+                        <img src="path-to-image" class="card-img-top" alt="Product image">
+                        <div class="card-body">
+                            <h5 class="card-title">Product Name</h5>
+                            <p class="card-text">Price and details</p>
+                            <a href="#" class="btn btn-primary">View</a>
+                          </div>
+                        <div class="card-footer">
+                            <small class="text-muted">Last updated 3 mins ago</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                  <div class="card h-100" id="item1">
+                      <img src="path-to-image" class="card-img-top" alt="Product image">
+                      <div class="card-body">
+                          <h5 class="card-title">Product Name</h5>
+                          <p class="card-text">Price and details</p>
+                          <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                      <div class="card-footer">
+                          <small class="text-muted">Last updated 3 mins ago</small>
+                      </div>
+                  </div>
+              </div>
+              <div class="col">
+                <div class="card h-100" id="item1">
+                    <img src="path-to-image" class="card-img-top" alt="Product image">
+                    <div class="card-body">
+                        <h5 class="card-title">Product Name</h5>
+                        <p class="card-text">Price and details</p>
+                        <a href="#" class="btn btn-primary">View</a>
+                      </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+              <div class="card h-100" id="item1">
+                  <img src="path-to-image" class="card-img-top" alt="Product image">
+                  <div class="card-body">
+                      <h5 class="card-title">Product Name</h5>
+                      <p class="card-text">Price and details</p>
+                      <a href="#" class="btn btn-primary">View</a>
+                    </div>
+                  <div class="card-footer">
+                      <small class="text-muted">Last updated 3 mins ago</small>
+                  </div>
+              </div>
           </div>
+          <div class="col">
+            <div class="card h-100" id="item1">
+                <img src="path-to-image" class="card-img-top" alt="Product image">
+                <div class="card-body">
+                    <h5 class="card-title">Product Name</h5>
+                    <p class="card-text">Price and details</p>
+                    <a href="#" class="btn btn-primary">View</a>
+                  </div>
+                <div class="card-footer">
+                    <small class="text-muted">Last updated 3 mins ago</small>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+          <div class="card h-100" id="item1">
+              <img src="path-to-image" class="card-img-top" alt="Product image">
+              <div class="card-body">
+                  <h5 class="card-title">Product Name</h5>
+                  <p class="card-text">Price and details</p>
+                  <a href="#" class="btn btn-primary">View</a>
+                </div>
+              <div class="card-footer">
+                  <small class="text-muted">Last updated 3 mins ago</small>
+              </div>
+          </div>
+      </div>
+            </div>
+            <!-- Optionally add pagination here -->
+        </div>
+      </div>
+    </div>
+        <!-- Circular cart button -->
+    <button class="btn btn-primary rounded-circle cart-button">
+        <i class="fas fa-shopping-cart"></i> <!-- You can use an SVG or an icon library like FontAwesome for the cart icon -->
+    </button>
+    <script>
+      // JavaScript to enable/disable the max price input based on the checkbox
+      document.getElementById('maxPriceCheck').addEventListener('change', function() {
+        var maxPriceInput = document.getElementById('maxPriceInput');
+        maxPriceInput.disabled = !this.checked;
+      });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-        <!-- Item Cards (3) -->
     </body>
 </html>
