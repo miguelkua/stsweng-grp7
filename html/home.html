@@ -15,6 +15,7 @@
                 <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" id="navbarsearch">
                 <button class="btn btn-outline-success" type="submit">Search</button>
               </form>
+              <button class="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight">View Cart</button>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
@@ -39,6 +40,72 @@
               </div>
             </div>
           </nav>
+
+         <!-- Offcanvas Cart-->
+    <div class="offcanvas offcanvas-end" style="width: 50%;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+          <div class="container">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Product</th>
+                          <th></th>
+                          <th>Unit Price</th>
+                          <th>Quantity</th>
+                          <th>Total Price</th>
+                          <th></th> <!-- Empty header for delete button column -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td colspan="6" class="font-weight-bold">Store Name 1</td> <!-- Spanning all columns -->
+                      </tr>
+                      <!-- Items for Store Name 1 -->
+                      <tr>
+                          <td>
+                              <img src="item-image1.jpg" alt="Item Image 1" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 1</td>
+                          <td class="text-center" >$10</td>
+                          <td class="text-center" >2</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <tr>
+                          <td colspan="6" class="font-weight-bold">Store Name 2</td> <!-- Spanning all columns -->
+                      </tr>
+                      <!-- Items for Store Name 2 -->
+                      <tr>
+                          <td>
+                              <img src="item-image2.jpg" alt="Item Image 2" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 2</td>
+                          <td class="text-center" >$15</td>
+                          <td class="text-center" >3</td>
+                          <td class="text-center" >$45</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <tr>
+                          <td>
+                              <img src="item-image3.jpg" alt="Item Image 3" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 3</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" >1</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <!-- Add more rows as needed -->
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+
+
 
 
     <!-- Main content -->
