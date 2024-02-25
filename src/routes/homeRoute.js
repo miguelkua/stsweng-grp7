@@ -1,14 +1,22 @@
 const express = require('express');
 const router = express.Router();
+const Listing = require('../models/listing');
 
-router.get('/', (req, res) => {
-  // Check if the user is authenticated by looking for the username in the session
-  const isAuthenticated = req.session.username ? true : false;
-  console.log('isAuthenticated:', isAuthenticated); // Add this line for debugging
+router.get('/', async (req, res) => {
+  try {
+    // Fetch the listings from MongoDB
+    const listings = await Listing.find();
 
-  // If authenticated, render the home template with the username
-  // If not authenticated, render the home template without the username
-  res.render('home', { isAuthenticated, username: req.session.username });
+    // Check if the user is authenticated by looking for the username in the session
+    const isAuthenticated = req.session.username ? true : false;
+
+    // If authenticated, render the home template with the username and listings
+    // If not authenticated, render the home template without the username but with listings
+    res.render('home', { isAuthenticated, username: req.session.username, listings });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = router;

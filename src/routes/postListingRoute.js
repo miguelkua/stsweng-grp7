@@ -1,43 +1,50 @@
 const express = require('express');
-const multer = require('multer');
-const path = require('path');
 const router = express.Router();
-const fs = require('fs');
+const multer = require('multer');
+const Listing = require('../models/listing');
 
-// Set up Multer for handling file uploads
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        const uploadDir = path.join(__dirname, '../uploads');
-    
-        // Create the uploads directory if it doesn't exist
-        if (!fs.existsSync(uploadDir)) {
-          fs.mkdirSync(uploadDir);
-        }
-    
-        cb(null, uploadDir);
-    },
-    filename: (req, file, cb) => {
-        const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
-        cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
-    },
+// Multer middleware for handling file uploads
+const storage = multer.memoryStorage();
+const upload = multer({
+  storage: storage,
+  limits: {
+    fileSize: 5 * 1024 * 1024, // 5 MB limit per file
+  },
 });
 
-const upload = multer({ storage: storage });
-
-// Handle the GET request to render the form
+// GET route for displaying the post listing page
 router.get('/', (req, res) => {
-    res.render('postListing', { isAuthenticated: req.session.username ? true : false });
+  res.render('post-listing');
 });
 
-// Handle the POST request to save the listing
-router.post('/', upload.array('photos', 5), (req, res) => {
-  const { name, brand, type, price, description } = req.body;
-  const photos = req.files.map(file => file.filename);
+router.post('/', upload.array('photos', 10), async (req, res) => {
+  try {
+    const { name, brand, type, price, description } = req.body;
 
-  // Save the listing to the database or perform other actions
-  console.log('Listing Data:', { name, brand, type, price, description, photos });
+    const uploadedImages = req.files.map(file => {
+      return {
+        data: file.buffer.toString('base64'),
+        contentType: file.mimetype,
+      };
+    });
 
-  res.redirect('/?isAuthenticated=' + (req.session.username ? true : false));
+    const newListing = new Listing({
+      name,
+      brand,
+      type,
+      price,
+      description,
+      photos: uploadedImages,
+    });
+
+    // Save the listing to MongoDB
+    await newListing.save();
+
+    res.status(201).json({ message: 'Listing created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 module.exports = router;

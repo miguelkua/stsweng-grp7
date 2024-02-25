@@ -19,6 +19,28 @@
         <a href="/signup">Sign Up</a>
     {{/if}}
 
-
+    {{#if listings.length}}
+        <ul>
+            {{#each listings}}
+                <li>
+                    <h2>{{name}}</h2>
+                    <p>Brand: {{brand}}</p>
+                    <p>Type: {{type}}</p>
+                    <p>Price: {{price}}</p>
+                    <p>Description: {{description}}</p>
+                    {{#if photos.length}}
+                        <h3>Photos:</h3>
+                        <ul>
+                            {{#each photos}}
+                                <li><img src="data:image/jpeg;base64,{{this.data}}" alt="Listing Photo"></li>
+                            {{/each}}
+                        </ul>
+                    {{/if}}
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>No listings available.</p>
+    {{/if}}
 </body>
 </html>
