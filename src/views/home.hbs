@@ -3,44 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    {{#if isAuthenticated}}
-        <h1>Welcome to the Home Page, {{ username }}!</h1>
-        <!-- Other authenticated user content -->
-        <a href="/logout">Sign Out</a>
+    {{> navbar}}
 
-        <a href="/post-listing">Post Listing</a>
-    {{else}}
-        <h1>Welcome to the Home Page! {{ username }}</h1>
-        <!-- Other content for non-authenticated users -->
-        <a href="/login">Login</a>
-        <a href="/signup">Sign Up</a>
-    {{/if}}
-
+    
     {{#if listings.length}}
-        <ul>
-            {{#each listings}}
-                <li>
-                    <h2>{{name}}</h2>
-                    <p>Brand: {{brand}}</p>
-                    <p>Type: {{type}}</p>
-                    <p>Price: {{price}}</p>
-                    <p>Description: {{description}}</p>
-                    {{#if photos.length}}
-                        <h3>Photos:</h3>
-                        <ul>
-                            {{#each photos}}
-                                <li><img src="data:image/jpeg;base64,{{this.data}}" alt="Listing Photo"></li>
-                            {{/each}}
-                        </ul>
-                    {{/if}}
-                </li>
-            {{/each}}
-        </ul>
+        <div class="col-md-9">
+            <!-- Row for the product cards -->
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <!-- Product cards -->
+                {{#each listings}}
+                    <div class="col-4">
+                        <div class="card h-100">
+                            <div class="card-img-container">
+                                {{#if photos.length}}
+                                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top" alt="Listing Photo">
+                                {{else}}
+                                    <img src="data:image/jpeg;base64,{{defaultImageBase64String}}" class="card-img-top" alt="Default Photo">
+                                {{/if}}
+                            </div>
+                            <div class="card-body">
+                                <h5 class="card-title">{{name}}</h5>
+                                <p class="card-text">Brand: {{brand}}</p>
+                                <p class="card-text">Type: {{type}}</p>
+                                <p class="card-text">Price: {{price}}</p>
+                                <p class="card-text">Description: {{description}}</p>
+                                <a href="#" class="btn btn-primary">View Details</a>
+                            </div>
+                            <div class="card-footer">
+                                <small class="text-muted">Last updated 3 mins ago</small>
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
     {{else}}
         <p>No listings available.</p>
     {{/if}}
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -25,7 +25,7 @@ app.use(session({
   saveUninitialized: true
 }));
 
-
+hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.urlencoded({ extended: false }));
 
 // Use the route files
