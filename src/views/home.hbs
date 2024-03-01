@@ -8,42 +8,73 @@
 </head>
 <body>
     {{> navbar}}
-
     
-    {{#if listings.length}}
+     <!-- Main content -->
+    <div class="container mt-3">
+      <div class="row">
+        <button class="btn btn-primary d-block d-md-none my-2" type="button" data-bs-toggle="collapse" data-bs-target="#filterSidebar" aria-expanded="false" aria-controls="filterSidebar">
+          Filter Options
+        </button>
+          <!-- Filter column -->
+          <div class="col-md-3">
+            <div class="d-md-block" id="filterSidebar">
+            <h5>Filter by</h5>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterCategory">
+                <label class="form-check-label" for="filterCategory">Category</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterLocation">
+                <label class="form-check-label" for="filterLocation">Location</label>
+            </div>
+            <!-- Add more filters -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterNewArrivals">
+                <label class="form-check-label" for="filterNewArrivals">New Arrivals</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="filterBestSellers">
+                <label class="form-check-label" for="filterBestSellers">Best Sellers</label>
+            </div>
+            <div>
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="maxPriceCheck" data-bs-toggle="collapse" data-bs-target="#maxPriceCollapse" aria-expanded="false" aria-controls="maxPriceCollapse">
+                <label class="form-check-label" for="maxPriceCheck">Max Price</label>
+              </div>
+              <div class="collapse" id="maxPriceCollapse">
+                <div class="mt-2">
+                  <input type="number" class="form-control" id="maxPriceInput" placeholder="Enter max price" disabled>
+                </div>
+              </div>
+            </div>
+            <!-- Add as many filters as needed -->
+        </div>
+        </div>
+          
         <div class="col-md-9">
             <!-- Row for the product cards -->
             <div class="row row-cols-1 row-cols-md-3 g-4">
                 <!-- Product cards -->
                 {{#each listings}}
-                    <div class="col-4">
-                        <div class="card h-100">
-                            <div class="card-img-container">
-                                {{#if photos.length}}
-                                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top" alt="Listing Photo">
-                                {{else}}
-                                    <img src="data:image/jpeg;base64,{{defaultImageBase64String}}" class="card-img-top" alt="Default Photo">
-                                {{/if}}
-                            </div>
-                            <div class="card-body">
-                                <h5 class="card-title">{{name}}</h5>
-                                <p class="card-text">Brand: {{brand}}</p>
-                                <p class="card-text">Type: {{type}}</p>
-                                <p class="card-text">Price: {{price}}</p>
-                                <p class="card-text">Description: {{description}}</p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
+                <div class="col">
+                    <div class="card h-100" id="{{this._id}}">
+                        <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo">
+                        <div class="card-body">
+                            <h5 class="card-title">{{name}}</h5>
+                            <class class="card-text">{{price}}</class>
+                            <a href="#" class="btn btn-primary">View</a>
+                        </div>
+                         <div class="card-footer">
+                            <small class="text-muted">This should contain the date it was posted</small>
                         </div>
                     </div>
+                </div>
                 {{/each}}
             </div>
+            <!-- Optionally add pagination here -->
         </div>
-    {{else}}
-        <p>No listings available.</p>
-    {{/if}}
-
+                
+                
 
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
