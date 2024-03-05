@@ -1,0 +1,15 @@
+#cardimg {
+    height: 200px; /* Fixed height for all images */
+    object-fit: cover; /* This will ensure that the aspect ratio is maintained */
+    width: 100%; /* This ensures that your image covers the full width of the card */
+}
+
+#cardbody {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* This will push the text to the top and the button to the bottom */
+}
+
+.custom{
+    margin-bottom:10px;
+  }
