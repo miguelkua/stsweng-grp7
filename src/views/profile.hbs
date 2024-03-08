@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+    <head>
+        <title>PCMundo</title>
+        <link rel="stylesheet" href="/css/style.css">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        {{> navbar}}
+
+         <!-- Offcanvas Cart-->
+    <div class="offcanvas offcanvas-end" style="width: 50%;" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+      <div class="offcanvas-header">
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+          <div class="container">
+              <table class="table">
+                  <thead>
+                      <tr>
+                          <th>Product</th>
+                          <th></th>
+                          <th>Unit Price</th>
+                          <th>Quantity</th>
+                          <th>Total Price</th>
+                          <th></th> <!-- Empty header for delete button column -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td colspan="6" class="font-weight-bold">Store Name 1</td> <!-- Spanning all columns -->
+                      </tr>
+                      <!-- Items for Store Name 1 -->
+                      <tr>
+                          <td>
+                              <img src="item-image1.jpg" alt="Item Image 1" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 1</td>
+                          <td class="text-center" >$10</td>
+                          <td class="text-center" >2</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <tr>
+                          <td colspan="6" class="font-weight-bold">Store Name 2</td> <!-- Spanning all columns -->
+                      </tr>
+                      <!-- Items for Store Name 2 -->
+                      <tr>
+                          <td>
+                              <img src="item-image2.jpg" alt="Item Image 2" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 2</td>
+                          <td class="text-center" >$15</td>
+                          <td class="text-center" >3</td>
+                          <td class="text-center" >$45</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <tr>
+                          <td>
+                              <img src="item-image3.jpg" alt="Item Image 3" class="img-fluid">
+                          </td>
+                          <td class="small">Item Name 3</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" >1</td>
+                          <td class="text-center" >$20</td>
+                          <td class="text-center" ><button class="btn btn-danger">Delete</button></td> <!-- Delete button -->
+                      </tr>
+                      <!-- Add more rows as needed -->
+                  </tbody>
+              </table>
+          </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="container mt-3">
+      <div class="row">
+        
+          <!-- Profile Info -->
+          <div class="col-md-3">
+            <div class="profile-info text-center">
+              <img src="../assets/profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="max-width: 100px">
+              <h3>Profile Name</h5>
+              <h5>User Location</h3>
+              <p class="text-left small m-0">Products: # of Products</p>
+              <p class="text-left small">Joined: Date  </p>
+
+              <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+                <div class="carousel-inner">
+                  <!-- First Slide -->
+                  <div class="carousel-item active">
+                    <img class="d-block w-100" src="../assets/slide1.jpeg" alt="First slide">
+                  </div>
+                  <!-- Second Slide -->
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="../assets/slide2.jpeg" alt="Second slide">
+                  </div>
+                  <!-- Third Slide -->
+                  <div class="carousel-item">
+                    <img class="d-block w-100" src="../assets/slide3.jpeg" alt="Third slide">
+                  </div>
+                </div>
+              </div>
+              
+            </div> 
+          </div>
+          
+          <div class="col-md-9">
+          <div class="row">
+              <!-- Product cards -->
+              {{#each listings}}
+              <div class="col-md-4 custom">
+                <div class="card h-100" id="{{this._id}}">
+                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo" id="cardimg">
+                    <div class="card-body" id="cardbody">
+                        <class class="card-title">{{price}}</class>
+                        <h5 class="card-text">{{name}}</h5>
+                        <p class="text-desc">{{description}}</p>
+                    </div>
+                      <div class="card-footer">
+                        <p class="time-posted">This should contain the date it was posted</p>
+                    </div>
+                </div>
+                </div>
+              {{/each}}
+              <!-- Optionally add pagination here -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    </body>
+</html>
