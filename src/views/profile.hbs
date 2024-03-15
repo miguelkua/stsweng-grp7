@@ -81,9 +81,9 @@
             <div class="profile-info text-center">
               <img src="../assets/profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="max-width: 100px">
               <h3>{{username}}</h5>
-              <h5>User Location</h3>
-              <p class="text-left small m-0">Products: # of Products</p>
-              <p class="text-left small">Joined: Date  </p>
+              <h5>{{location}}</h3>
+              <p class="text-left small m-0">Products: {{productCount}} Products</p>
+              <p class="text-left small">Joined: Date {{formatDate dateJoined}}</p>
 
               <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
                 <div class="carousel-inner">
