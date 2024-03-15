@@ -80,7 +80,7 @@
           <div class="col-md-3">
             <div class="profile-info text-center">
               <img src="../assets/profile.png" class="img-fluid rounded-circle mb-3" alt="Profile Picture" style="max-width: 100px">
-              <h3>Profile Name</h5>
+              <h3>{{username}}</h5>
               <h5>User Location</h3>
               <p class="text-left small m-0">Products: # of Products</p>
               <p class="text-left small">Joined: Date  </p>
@@ -108,21 +108,23 @@
           <div class="col-md-9">
           <div class="row">
               <!-- Product cards -->
-              {{#each listings}}
-              <div class="col-md-4 custom">
-                <div class="card h-100" id="{{this._id}}">
+            {{#each listings}}
+              {{#ifCond this.user.username '===' user}}
+                <div class="col-md-4 custom">
+                  <div class="card h-100" id="{{this._id}}">
                     <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo" id="cardimg">
                     <div class="card-body" id="cardbody">
-                        <class class="card-title">{{price}}</class>
-                        <h5 class="card-text">{{name}}</h5>
-                        <p class="text-desc">{{description}}</p>
+                      <h5 class="card-title">{{price}}</h5>
+                      <h5 class="card-text">{{name}}</h5>
+                      <p class="text-desc">{{description}}</p>
                     </div>
-                      <div class="card-footer">
-                        <p class="time-posted">This should contain the date it was posted</p>
+                    <div class="card-footer">
+                      <p class="time-posted">This should contain the date it was posted</p>
                     </div>
+                  </div>
                 </div>
-                </div>
-              {{/each}}
+              {{/ifCond}}
+            {{/each}}
               <!-- Optionally add pagination here -->
           </div>
         </div>

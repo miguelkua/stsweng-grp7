@@ -31,6 +31,29 @@ hbs.registerHelper('formatDate', (date) => {
   return new Date(date).toLocaleDateString(undefined, options);
 });
 
+hbs.registerHelper('ifCond', function(v1, operator, v2, options) {
+  switch (operator) {
+    case '===':
+      return (v1 === v2) ? options.fn(this) : options.inverse(this);
+    case '!==':
+      return (v1 !== v2) ? options.fn(this) : options.inverse(this);
+    case '<':
+      return (v1 < v2) ? options.fn(this) : options.inverse(this);
+    case '<=':
+      return (v1 <= v2) ? options.fn(this) : options.inverse(this);
+    case '>':
+      return (v1 > v2) ? options.fn(this) : options.inverse(this);
+    case '>=':
+      return (v1 >= v2) ? options.fn(this) : options.inverse(this);
+    case '&&':
+      return (v1 && v2) ? options.fn(this) : options.inverse(this);
+    case '||':
+      return (v1 || v2) ? options.fn(this) : options.inverse(this);
+    default:
+      return options.inverse(this);
+  }
+});
+
 hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.urlencoded({ extended: false }));
 

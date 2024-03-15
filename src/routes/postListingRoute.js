@@ -19,7 +19,7 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.array('photos', 10), async (req, res) => {
   try {
-    const { name, brand, type, price, description } = req.body;
+    const { name, brand, type, price, location, description } = req.body;
 
     // Get username from the session
     const username = req.session.username;
