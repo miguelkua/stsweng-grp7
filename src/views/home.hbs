@@ -6,6 +6,40 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <title>Document</title>
 </head>
+<style>
+
+  .custom{
+    margin-bottom: 20px;
+  }
+
+  /* shadow per card */
+  .card{
+    box-shadow: 1.5px 1.5px #d3d2d2;
+  }
+
+  .text-desc{
+    font-size: 1.1rem;
+  }
+  .text-loc{
+    font-size: 0.8rem;
+  }
+  .time-posted{
+    font-size: 0.7rem;
+  }
+
+  #cardimg {
+    height: 200px;
+    max-height: 200px; /* Fixed height for all images */
+    object-fit: cover; /* This will ensure that the aspect ratio is maintained */
+    width: 100%; /* This ensures that your image covers the full width of the card */
+  }
+
+  #cardbody {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* This will push the text to the top and the button to the bottom */
+  }
+</style>
 <body>
     {{> navbar}}
     
@@ -48,31 +82,32 @@
               </div>
             </div>
             <!-- Add as many filters as needed -->
+        </div>          
         </div>
-        </div>
-          
         <div class="col-md-9">
-            <!-- Row for the product cards -->
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-                <!-- Product cards -->
-                {{#each listings}}
-                <div class="col">
-                    <div class="card h-100" id="{{this._id}}">
-                        <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo">
-                        <div class="card-body">
-                            <h5 class="card-title">{{name}}</h5>
-                            <class class="card-text">{{price}}</class>
-                            <a href="#" class="btn btn-primary">View</a>
-                        </div>
-                         <div class="card-footer">
-                            <small class="text-muted">{{formatDate datePosted}}</small>
-                        </div>
+          <div class="row">
+              <!-- Product cards -->
+              {{#each listings}}
+              <div class="col-md-4 custom">
+                <div class="card h-100" id="{{this._id}}">
+                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo" id="cardimg">
+                    <div class="card-body" id="cardbody">
+                        <class class="card-title">{{price}}</class>
+                        <h5 class="card-text">{{name}}</h5>
+                        <p class="text-desc">{{description}}</p>
                     </div>
+                      <div class="card-footer">
+                        <p class="time-posted">{{formatDate datePosted}}</p>
+                    </div>
+                </div>
                 </div>
                 {{/each}}
             </div>
             <!-- Optionally add pagination here -->
         </div>
+                
+                
+
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
