@@ -11,6 +11,11 @@ router.post('/', async (req, res) => {
   try {
     const { username, password, email, phone } = req.body;
 
+    // email
+    if (email !== confirmEmail) {
+      return res.status(400).send('Emails do not match.');
+    }
+
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const userData = {
