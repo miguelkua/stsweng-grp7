@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Listing</title>
+    <!-- Bootstrap CSS Link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Post a Listing</h1>
+                {{#if success}}
+                <div class="alert alert-success" role="alert">
+                {{{success}}}
+                </div>
+                {{/if}}
+                <form action="/post-listing" method="post" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" class="form-control" name="name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="brand">Brand:</label>
+                        <input type="text" class="form-control" name="brand" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <input type="text" class="form-control" name="type" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" class="form-control" name="price" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Location:</label>
+                        <input type="text" class="form-control" name="location" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea class="form-control" name="description" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="photos">Photos:</label>
+                        <input type="file" class="form-control-file" name="photos" accept="image/*" multiple required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-block mt-4">Post Listing</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and Popper.js Scripts (Required for Bootstrap) -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

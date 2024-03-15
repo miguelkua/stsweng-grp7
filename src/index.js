@@ -9,7 +9,7 @@ const loginRoute = require('./routes/loginRoute');
 const signupRoute = require('./routes/signupRoute');
 const logoutRoute = require('./routes/logoutRoute');
 const postListingRoute = require('./routes/postListingRoute'); // Import the new route
-
+const profileRoute = require('./routes/profileRoute');
 connectMongoDB();
 
 const templatePath = path.join(__dirname, "../src/views");
@@ -25,7 +25,13 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Define formatDate helper
+hbs.registerHelper('formatDate', (date) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(date).toLocaleDateString(undefined, options);
+});
 
+hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.urlencoded({ extended: false }));
 
 // Use the route files
@@ -33,6 +39,7 @@ app.use('/', homeRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);
+app.use('/profile',profileRoute);
 app.use('/post-listing', postListingRoute); // Use the new route
 
 app.listen(3000, () => {
