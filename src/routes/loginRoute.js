@@ -26,18 +26,17 @@ router.post('/', async (req, res) => {
     if (user && await bcrypt.compare(req.body.password, user.password)) {
       // Store the username in the session upon successful login
       req.session.username = user.username;
-      req.session.userId = user._id;
-
-      console.log('User ObjectID:', user._id);
-
+      
       // Redirect to the home page after successful login
       res.redirect('/');
     } else {
-      res.status(400).send('Invalid Login Details');
+      // Send Bootstrap alert for invalid login details
+      return res.render('login', { error: 'Invalid Login Details' });
     }
   } catch (e) {
     console.error(e);
-    res.status(500).send('Internal Server Error');
+    // Send Bootstrap alert for internal server error
+    return res.render('login', { error: 'Internal Server Error' });
   }
 });
 

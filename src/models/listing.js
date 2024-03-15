@@ -1,4 +1,3 @@
-// listing.js
 const mongoose = require('mongoose');
 
 const listingSchema = new mongoose.Schema({
@@ -32,6 +31,15 @@ const listingSchema = new mongoose.Schema({
       required: true,
     },
   }],
+  location: {
+    type: String,
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true,
+  },
 });
 
 const Listing = mongoose.model('Listing', listingSchema);

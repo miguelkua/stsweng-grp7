@@ -16,6 +16,14 @@
                         <h2 class="text-center">Login</h2>
                     </div>
                     <div class="card-body">
+                        <!-- Bootstrap alerts section -->
+                       {{#if error}}
+                        <div class="alert alert-danger" role="alert">
+                            {{{error}}}
+                        </div>
+                        {{/if}}
+                        <!-- End of Bootstrap alerts section -->
+
                         <form action="/login" method="post">
                             <div class="form-group">
                                 <label for="username">Username</label>

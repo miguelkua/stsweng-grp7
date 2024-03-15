@@ -21,6 +21,9 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
   try {
     const { name, brand, type, price, description } = req.body;
 
+    // Get username from the session
+    const username = req.session.username;
+
     const uploadedImages = req.files.map(file => {
       return {
         data: file.buffer.toString('base64'),
@@ -35,12 +38,18 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
       price,
       description,
       photos: uploadedImages,
+      location, 
+      user: username,
     });
+
+    // Save the current date and time to datePosted
+    newListing.datePosted = Date.now();
+
 
     // Save the listing to MongoDB
     await newListing.save();
 
-    res.status(201).json({ message: 'Listing created successfully' });
+    res.render('post-listing', { success: 'Listing created successfully' });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

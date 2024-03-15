@@ -25,6 +25,12 @@ app.use(session({
   saveUninitialized: true
 }));
 
+// Define formatDate helper
+hbs.registerHelper('formatDate', (date) => {
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  return new Date(date).toLocaleDateString(undefined, options);
+});
+
 hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.urlencoded({ extended: false }));
 
