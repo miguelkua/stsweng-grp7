@@ -25,6 +25,7 @@ router.post('/', async (req, res) => {
 
     req.session.username = NewUser.username;
 
+    
     // Redirect to the home page after successful signup
     res.redirect('/');
   } catch (error) {

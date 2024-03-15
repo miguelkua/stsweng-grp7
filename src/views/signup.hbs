@@ -16,7 +16,14 @@
                         <h2 class="text-center">Sign Up</h2>
                     </div>
                     <div class="card-body">
-                        <form action="/signup" method="post">
+                        <div id="error-container">
+                            {{#if error}}
+                                <div class="alert alert-danger" role="alert">
+                                    {{{error}}}
+                                </div>
+                            {{/if}}
+                        </div>
+                        <form  id="signupForm" action="/signup" method="post" onsubmit="return validateForm()">
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>
@@ -28,6 +35,10 @@
                             <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Confirm Email</label>
+                                <input type="email" class="form-control" name="confirmEmail" id="confirm-email" placeholder="Re-enter your email address" required>
                             </div>
                             <div class="form-group">
                                 <label for="phone">Phone Number</label>
@@ -52,5 +63,19 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        function validateForm() {
+            var email = document.getElementById("email").value;
+            var confirmEmail = document.getElementById("confirm-email").value;
+            var errorContainer = document.getElementById("error-container");
+
+            if (email !== confirmEmail) {
+                errorContainer.innerHTML = '<div class="alert alert-danger" role="alert">Email and Confirm Email do not match</div>';
+                return false;
+            }
+
+            return true;
+        }
+    </script>
 </body>
 </html>
