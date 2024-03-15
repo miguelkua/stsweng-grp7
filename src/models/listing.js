@@ -31,14 +31,18 @@ const listingSchema = new mongoose.Schema({
       required: true,
     },
   }],
-  location: {
-    type: String,
-    required: true,
-  },
   user: {
     type: String,
     required: true,
   },
+  location: {
+    type: String,
+    required: true,
+  },
+  datePosted: {
+    type: Date,
+    default: Date.now
+  }
 });
 
 const Listing = mongoose.model('Listing', listingSchema);

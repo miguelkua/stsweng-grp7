@@ -10,6 +10,7 @@ const signupRoute = require('./routes/signupRoute');
 const logoutRoute = require('./routes/logoutRoute');
 const postListingRoute = require('./routes/postListingRoute'); // Import the new route
 const profileRoute = require('./routes/profileRoute');
+const searchRoute = require('./routes/searchRoute'); // Import the new search route
 connectMongoDB();
 
 const templatePath = path.join(__dirname, "../src/views");
@@ -64,6 +65,7 @@ app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);
 app.use('/profile',profileRoute);
 app.use('/post-listing', postListingRoute); // Use the new route
+app.use('/search', searchRoute); // Use the new search route
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');

@@ -17,9 +17,13 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  datePosted: {
+  location: {
+    type: String, // Assuming location is a string, adjust as needed
+    required: true
+  },
+  dateJoined: {
     type: Date,
-    default: Date.now,
+    default: Date.now // Automatically set to the current date when a new user is created
   },
 });
 

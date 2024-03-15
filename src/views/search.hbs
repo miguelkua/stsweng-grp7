@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Listings</title>
+</head>
+<body>
+    <h1>Search Listings</h1>
+    <form action="/search/results" method="GET">
+        <label for="query">Search:</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">Search</button>
+    </form>
+
+    {{#if searchResults}}
+        <h2>Search Results</h2>
+        <div class="search-results">
+            {{#each searchResults}}
+                <div class="listing">
+                    <h2>{{name}}</h2>
+                    <p><strong>Type:</strong> {{type}}</p>
+                    <p><strong>Price:</strong> ${{price}}</p>
+                    <p><strong>Description:</strong> {{description}}</p>
+                    <p><strong>Location:</strong> {{location}}</p>
+                    <p><strong>User:</strong> {{user}}</p>
+                    <p><strong>Date Posted:</strong> {{formatDate datePosted}}</p>
+                    <div class="photos">
+                        {{#each photos}}
+                            <img src="data:{{contentType}};base64,{{data}}" alt="Listing Photo">
+                        {{/each}}
+                    </div>
+                </div>
+            {{/each}}
+        </div>
+    {{else}}
+        <p>No search results found.</p>
+    {{/if}}
+</body>
+</html>
