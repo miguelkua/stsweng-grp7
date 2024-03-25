@@ -39,6 +39,46 @@
       flex-direction: column;
       justify-content: space-between; /* This will push the text to the top and the button to the bottom */
   }
+
+  .btn-half-width {
+    width: 50%;
+}
+
+ .form-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    .store-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .description {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    }
+  }
 </style>
 <body>
     {{> navbar}}
@@ -99,19 +139,53 @@
                       <div class="card-footer">
                         <p class="time-posted">This should contain the date it was posted</p>
                     </div>
+                     <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
+                        <button class="view btn-outline-primary btn-half-width" id="view-list">View</button>
+                    </div>
                 </div>
                 </div>
               {{/each}}
               <!-- Optionally add pagination here -->
           </div>
+        </div>  
+      </div>
+      </div>
+      
+<div class="container">
+  <div id="form-overlay" class="form-overlay">
+    <div class="form-container">
+      <button class="btn-outline-secondary float-end" id="close-form">X</button>
+      <div class="row">
+        <div class="col-md-4 d-flex align-items-center">
+          <img src="item-image.jpg" class="img-fluid rounded" alt="Item Image">
+        </div>
+        <div class="col-md-8">
+          <h2>Item Name</h2>
+          <p>Price: $XX.XX</p>
+          <div class="store-info">
+            <img src="store-profile-pic.jpg" alt="Store Profile">
+            <p>Store Name</p>
+          </div>
+          <div class="description">
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
+            </p>
+            <!-- More description content goes here -->
+          </div>
+          <div class="text-center">
+            <button class="buy-item btn-outline-primary btn-half-width mt-3" id="buy-item">Buy</button>
+          </div>
         </div>
       </div>
-      </div>
-                
-                
+    </div>
+  </div>
+</div>
 
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="js/viewlist.js"> </script>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

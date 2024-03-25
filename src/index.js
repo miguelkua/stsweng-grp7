@@ -35,6 +35,7 @@ app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);
 app.use('/profile',profileRoute);
 app.use('/post-listing', postListingRoute); // Use the new route
+app.use(express.static(path.join(__dirname, '../public')));
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
