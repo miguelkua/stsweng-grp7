@@ -10,6 +10,7 @@ const signupRoute = require('./routes/signupRoute');
 const logoutRoute = require('./routes/logoutRoute');
 const postListingRoute = require('./routes/postListingRoute'); // Import the new route
 const profileRoute = require('./routes/profileRoute');
+const cartRoute = require('./routes/cartRoute');
 connectMongoDB();
 
 const templatePath = path.join(__dirname, "../src/views");
@@ -34,6 +35,7 @@ app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);
 app.use('/profile',profileRoute);
+app.use('/cart', cartRoute);
 app.use('/post-listing', postListingRoute); // Use the new route
 app.use(express.static(path.join(__dirname, '../public')));
 
