@@ -4,7 +4,7 @@ const router = express.Router();
 const User = require('../models/user');
 
 router.get('/', (req, res) => {
-  res.render('signup');
+  res.render(200,'signup');
 });
 
 router.post('/', async (req, res) => {
@@ -27,7 +27,7 @@ router.post('/', async (req, res) => {
 
     
     // Redirect to the home page after successful signup
-    res.redirect('/');
+    res.redirect(200, '/');
   } catch (error) {
     console.error(error);
     res.status(500).send('Internal Server Error');
