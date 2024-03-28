@@ -31,7 +31,7 @@ router.post('/', async (req, res) => {
       console.log('User ObjectID:', user._id);
 
       // Redirect to the home page after successful login
-      res.redirect('/');
+      res.redirect('/home');
     } else {
       res.status(400).send('Invalid Login Details');
     }

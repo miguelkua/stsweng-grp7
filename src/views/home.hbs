@@ -4,82 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
     <title>Document</title>
 </head>
-<style>
-
-  .custom{
-    margin-bottom: 20px;
-  }
-
-  /* shadow per card */
-  .card{
-    box-shadow: 1.5px 1.5px #d3d2d2;
-  }
-
-  .text-desc{
-    font-size: 1.1rem;
-  }
-  .text-loc{
-    font-size: 0.8rem;
-  }
-  .time-posted{
-    font-size: 0.7rem;
-  }
-
-  #cardimg {
-    height: 200px;
-    max-height: 200px; /* Fixed height for all images */
-    object-fit: cover; /* This will ensure that the aspect ratio is maintained */
-    width: 100%; /* This ensures that your image covers the full width of the card */
-  }
-
-  #cardbody {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* This will push the text to the top and the button to the bottom */
-  }
-
-  .btn-half-width {
-    width: 50%;
-}
-
- .form-overlay {
-    display: none;
-    position: fixed;
-    z-index: 9999;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 600px;
-    padding: 20px;
-    background-color: #fff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-
-    .store-info img {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      margin-right: 10px;
-    }
-
-    .description {
-      max-height: 200px;
-      overflow-y: auto;
-      border: 1px solid #ddd;
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    #close-form {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    }
-  }
-</style>
 <body>
     {{> navbar}}
     
@@ -132,12 +59,9 @@
                 <div class="card h-100" id="{{this._id}}">
                     <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo" id="cardimg">
                     <div class="card-body" id="cardbody">
-                        <class class="card-title">{{price}}</class>
+                        <class class="card-title">&#8369;{{price}}</class>
                         <h5 class="card-text">{{name}}</h5>
                         <p class="text-desc">{{description}}</p>
-                    </div>
-                      <div class="card-footer">
-                        <p class="time-posted">This should contain the date it was posted</p>
                     </div>
                      <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
                         <button class="view btn-outline-primary btn-half-width" id="view-list">View</button>
@@ -151,41 +75,70 @@
       </div>
       </div>
       
-<div class="container">
-  <div id="form-overlay" class="form-overlay">
-    <div class="form-container">
-      <button class="btn-outline-secondary float-end" id="close-form">X</button>
-      <div class="row">
-        <div class="col-md-4 d-flex align-items-center">
-          <img src="item-image.jpg" class="img-fluid rounded" alt="Item Image">
-        </div>
-        <div class="col-md-8">
-          <h2>Item Name</h2>
-          <p>Price: $XX.XX</p>
-          <div class="store-info">
-            <img src="store-profile-pic.jpg" alt="Store Profile">
-            <p>Store Name</p>
-          </div>
-          <div class="description">
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed commodo lectus eget neque fermentum congue.
-            </p>
-            <!-- More description content goes here -->
-          </div>
-          <div class="text-center">
-            <button class="buy-item btn-outline-primary btn-half-width mt-3" id="buy-item">Buy</button>
+      <script src="js/viewlist.js"> </script>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+      <!-- Modal Structure -->
+      <!-- Modal Structure -->
+      <div class="modal fade" id="listingModal" tabindex="-1" role="dialog" aria-labelledby="listingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document"> <!-- Use 'modal-lg' for a larger modal -->
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="listingModalLabel">Product Details</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <!-- Image column -->
+                <div class="col-md-6">
+                  <img src="" alt="Product" id="modalProductImage" class="img-fluid">
+                </div>
+                <!-- Details column -->
+                <div class="col-md-6">
+                  <h3 id="modalProductName"></h3>
+                  <p id="modalProductPrice"></p>
+                  <p id="modalProductDesc"></p>
+                  <p id="modalProductLocation"></p>
+                  <div class="modal-actions">
+                    <button type="button" class="btn btn-primary">Add to cart</button>
+                    <button type="button" class="btn btn-secondary">Chat seller</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
-<script src="js/viewlist.js"> </script>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+$(document).ready(function() {
+  $('.view').on('click', function() {
+    // Assuming the view button is inside the .card div
+    var card = $(this).closest('.card');
+
+    var listingName = card.find('.card-text').text().trim();
+    var listingDesc = card.find('.text-desc').text().trim();
+    var listingPrice = card.find('.card-title').text().trim();
+    var imgSrc = card.find('.card-img-top').attr('src');
+    var listingLocation = "Placeholder for location"; // Replace with actual location data
+
+    // Populate modal elements
+    $('#listingModalLabel').text('Product Details');
+    $('#modalProductImage').attr('src', imgSrc);
+    $('#modalProductName').text(listingName);
+    $('#modalProductPrice').text(listingPrice);
+    $('#modalProductDesc').text(listingDesc);
+    $('#modalProductLocation').text(listingLocation);
+    
+    // Show the modal
+    $('#listingModal').modal('show');
+  });
+});
+
+
+</script>
 </body>
 </html>

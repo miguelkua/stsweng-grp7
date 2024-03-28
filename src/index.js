@@ -30,7 +30,7 @@ hbs.registerPartials(path.join(__dirname, "../templates/partials"));
 app.use(express.urlencoded({ extended: false }));
 
 // Use the route files
-app.use('/', homeRoute);
+app.use('/home', homeRoute);
 app.use('/login', loginRoute);
 app.use('/signup', signupRoute);
 app.use('/logout', logoutRoute);

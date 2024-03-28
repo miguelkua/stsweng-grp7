@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;1,100;1,200;1,300&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700&display=swap');
+    *{
+        font-family: "Montserrat", sans-serif;   
+    }
+    #navbar-main.bg-dark {
+        background-color: #1C2e42 !important; /* This changes the background color */
+        border-color: #1C2e42 !important; /* Optionally, adjust the border color to match */
+    }
+
+  .nav-item a{
+    color: white;
+    font-weight: 500;
+  }
+
+  .nav-item a:hover{
+    color: #d6b02e;
+    font-weight: 500;
+  }
+
+  .navbar-brand{
+    font-weight: 800;
+    color: #d6b02e;
+  }
+
+  .container-fluid a:hover{
+    color: #d6b02e;
+  }
+
+  .custom{
+    margin-bottom: 20px;
+  }
+
+  /* shadow per card */
+  .card{
+    box-shadow: 1.5px 1.5px #d3d2d2;
+  }
+
+  .text-desc{
+    font-size: 1.1rem;
+  }
+  .text-loc{
+    font-size: 0.8rem;
+  }
+  .time-posted{
+    font-size: 0.7rem;
+  }
+
+
+  #cardimg {
+    height: 200px;
+    max-height: 200px; /* Fixed height for all images */
+    object-fit: cover; /* This will ensure that the aspect ratio is maintained */
+    width: 100%; /* This ensures that your image covers the full width of the card */
+  }
+
+  #cardbody {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* This will push the text to the top and the button to the bottom */
+  }
+
+  .btn-half-width {
+    width: 50%;
+}
+
+ .form-overlay {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 600px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    .store-info img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .description {
+      max-height: 200px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #close-form {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    }
+  }
