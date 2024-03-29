@@ -10,31 +10,53 @@
     <form action="/search/results" method="GET">
         <label for="query">Search:</label>
         <input type="text" id="query" name="query" required>
+        <label for="category">Search Category:</label>
+        <select id="category" name="category">
+            <option value="listing">Listings</option>
+            <option value="user">Users</option>
+        </select>
         <button type="submit">Search</button>
     </form>
 
-    {{#if searchResults}}
-        <h2>Search Results</h2>
-        <div class="search-results">
-            {{#each searchResults}}
-                <div class="listing">
-                    <h2>{{name}}</h2>
-                    <p><strong>Type:</strong> {{type}}</p>
-                    <p><strong>Price:</strong> ${{price}}</p>
-                    <p><strong>Description:</strong> {{description}}</p>
-                    <p><strong>Location:</strong> {{location}}</p>
-                    <p><strong>User:</strong> {{user}}</p>
-                    <p><strong>Date Posted:</strong> {{formatDate datePosted}}</p>
-                    <div class="photos">
-                        {{#each photos}}
-                            <img src="data:{{contentType}};base64,{{data}}" alt="Listing Photo">
-                        {{/each}}
+    <!-- Handle search results based on category -->
+    {{#if listingResults}}
+        <h2>Listing Results</h2>
+        <ul>
+            {{#each listingResults}}
+                <li>
+                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top" alt="Listing Photo">
+                    <strong>Name:</strong> {{name}}<br>
+                    <strong>Type:</strong> {{type}}<br>
+                    <strong>Price:</strong> ${{price}}<br>
+                    <strong>Description:</strong> {{description}}<br>
+                    <strong>User:</strong> {{user}}<br>
+                    <strong>Location:</strong> {{location}}<br>
+                    <strong>Date Posted:</strong> {{formatDate datePosted}}<br>
+                    <strong>Availability:</strong> {{availability}}<br> <!-- New list item for availability -->
+                    <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
+                        <a href="/listing/{{_id}}" class="btn btn-outline-primary btn-half-width">View</a>
                     </div>
-                </div>
+                </li>
             {{/each}}
-        </div>
-    {{else}}
-        <p>No search results found.</p>
+        </ul>
+    {{/if}}
+
+    {{#if userResults}}
+        <h2>User Results</h2>
+        <ul>
+            {{#each userResults}}
+                <li>
+                    <strong>Username:</strong> {{username}}<br>
+                    <strong>Email:</strong> {{email}}<br>
+                    <strong>Location:</strong> {{location}}<br>
+                    <img src="data:image/jpeg;base64,{{profilePicture}}" alt="Profile Image"><br>
+                    <strong>Date Joined:</strong> {{formatDate dateJoined}}<br>
+                    <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
+                        <a href="/profile/{{username}}" class="btn btn-outline-primary btn-half-width">View</a>
+                    </div>
+                </li>
+            {{/each}}
+        </ul>
     {{/if}}
 </body>
 </html>

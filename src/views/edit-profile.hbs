@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+</head>
+<body>
+    <h1>Edit Profile</h1>
+        <!-- Input fields for editing profile details -->
+    <form action="/profile/change-profile-picture" method="POST" enctype="multipart/form-data">
+        <!-- Input field for selecting the new profile picture -->
+        <img src="data:image/jpeg;base64,{{user.profilePicture}}" alt="Listing Photo">
+
+        <input type="file" name="profilePicture" accept="image/*">
+        <!-- Submit button to upload the new profile picture -->
+        <button type="submit">Change Profile Picture</button>
+    </form>
+    <form action="/profile/edit-profile" method="POST">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" value="{{ user.username }}" readonly>
+        <label for="location">Location:</label>
+        <input type="text" id="location" name="location" value="{{ user.location }}">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone" value="{{ user.phone }}">
+        <button type="submit">Update Profile</button>
+    </form>
+</body>
+</html>

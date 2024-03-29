@@ -42,6 +42,11 @@ const listingSchema = new mongoose.Schema({
   datePosted: {
     type: Date,
     default: Date.now
+  },
+  availability: {
+    type: String,
+    enum: ['available', 'sold', 'reserved'], // Enumerated values for availability
+    default: 'available', // Default availability status
   }
 });
 

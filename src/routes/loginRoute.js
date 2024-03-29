@@ -26,7 +26,7 @@ router.post('/', async (req, res) => {
     if (user && await bcrypt.compare(req.body.password, user.password)) {
       // Store the username in the session upon successful login
       req.session.username = user.username;
-      
+
       // Redirect to the home page after successful login
       res.redirect('/');
     } else {

@@ -23,7 +23,11 @@
                                 </div>
                             {{/if}}
                         </div>
-                        <form  id="signupForm" action="/signup" method="post" onsubmit="return validateForm()">
+                        <form  id="signupForm" action="/signup" method="post" onsubmit="return validateForm()" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="profilePicture">Profile Picture:</label>
+                                <input type="file" class="form-control-file" name="profilePicture" accept="image/*">
+                            </div>
                             <div class="form-group">
                                 <label for="username">Username</label>
                                 <input type="text" class="form-control" name="username" id="username" placeholder="Enter your username" required>

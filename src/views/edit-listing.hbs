@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Listing</title>
+</head>
+<body>
+    <!-- Your edit listing form goes here -->
+    <h1>Edit Listing</h1>
+    <form action="/edit-listing/{{listing._id}}/remove-photos" method="POST">
+        {{#each listing.photos}}
+            <input type="checkbox" name="photoIdsToRemove" value="{{this._id}}">
+            <img src="data:image/jpeg;base64,{{this.data}}" alt="Listing Photo">
+        {{/each}}
+        <button type="submit">Delete Selected Photos</button>
+    </form>
+    <form action="/edit-listing/{{listing._id}}/add-photos" method="POST" enctype="multipart/form-data">
+        <input type="file" name="photosToAdd" multiple accept="image/*">
+        <button type="submit">Add Photos</button>
+    </form>
+    <!-- Form to edit the listing -->
+    <form action="/edit-listing/{{listing._id}}" method="POST">
+        <!-- Label and input field for name -->
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" value="{{listing.name}}">
+        
+        <!-- Label and input field for brand -->
+        <label for="brand">Brand:</label>
+        <input type="text" id="brand" name="brand" value="{{listing.brand}}">
+        
+        <!-- Label and input field for type -->
+        <label for="type">Type:</label>
+        <input type="text" id="type" name="type" value="{{listing.type}}">
+        
+        <!-- Label and input field for price -->
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="{{listing.price}}">
+        
+        <!-- Label and input field for description -->
+        <label for="description">Description:</label>
+        <textarea id="description" name="description">{{listing.description}}</textarea>
+
+        <label for="availability">Availability:</label>
+        <select id="availability" name="availability">
+            <option value="available" {{#ifCond listing.availability '===' 'available'}}selected{{/ifCond}}>Available</option>
+            <option value="sold" {{#ifCond listing.availability '===' 'sold'}}selected{{/ifCond}}>Sold</option>
+            <option value="reserved" {{#ifCond listing.availability '===' 'reserved'}}selected{{/ifCond}}>Reserved</option>
+        </select>
+
+        <button type="submit">Update Listing</button>
+    </form>
+</body>
+</html>

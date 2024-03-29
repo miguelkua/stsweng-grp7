@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Cart</title>
+</head>
+<body>
+    <h1>View Cart</h1>
+    {{#if cartItems}}
+        <ul>
+            {{#each cartItems}}
+                <li>
+                    <!-- Display the image -->
+                    <img src="data:image/jpeg;base64,{{this.photos.[0].data}}" class="cart-item-image" alt="Listing Photo">
+                    <!-- Display the listing name -->
+                    <a href="/listing/{{this._id}}">{{this.name}}</a> - ${{this.price}} - Seller: 
+                    <a href="/profile/{{this.user}}">{{this.user}}</a>
+                    <form action="/delete-from-cart/{{this._id}}" method="POST">
+                        <button type="submit">Remove from Cart</button>
+                    </form>
+                </li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <p>Your cart is empty.</p>
+    {{/if}}
+</body>
+</html>

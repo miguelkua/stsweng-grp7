@@ -48,12 +48,13 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
       location: user.location, // Use user's location
       user: username,
       datePosted: new Date(), // Set the current date and time
+      availability: 'available', // Set the availability field to 'available'
     });
 
     // Save the current date and time to datePosted
     await newListing.save();
 
-    res.render('post-listing', { success: 'Listing created successfully' });
+    res.render('post-listing', { success: 'Listing created successfully'});
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });

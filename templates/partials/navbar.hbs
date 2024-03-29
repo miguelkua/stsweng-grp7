@@ -3,23 +3,35 @@
         <a class="navbar-brand" href="">PC Mundo</a>
         <div class="collapse navbar-collapse" id="navbarScroll">
             <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
-                <li class="nav-item">
-                <a class="nav-link" aria-current="page" href="/signup">Sign Up</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/login">Log In</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/profile">My Profile</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/viewcart">View Cart</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="/search">Search</a>
-                </li>
-                <a class="nav-link" href="/post-listing">Add Listing</a>
-                </li>
+                {{#if logged_user}}
+                    <!-- Show options for logged-in user -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile/{{logged_user.username}}">My Profile</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/view-cart">View Cart</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/post-listing">Add Listing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/logout">Logout</a>
+                    </li>
+                {{else}}
+                    <!-- Show options for non-logged-in user -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="/signup">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login">Log In</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Search</a>
+                    </li>
+                {{/if}}
             </ul>
         </div>
     </div>

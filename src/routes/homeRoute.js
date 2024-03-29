@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
     // If authenticated, render the home template with the username and listings
     // If not authenticated, render the home template without the username but with listings
-    res.render('home', { isAuthenticated, username: req.session.username, listings });
+    res.render('home', { isAuthenticated, listings });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
