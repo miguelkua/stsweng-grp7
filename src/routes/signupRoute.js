@@ -28,7 +28,7 @@ fs.readFile(defaultImagePath, (err, data) => {
 });
 
 router.get('/', (req, res) => {
-  res.render('signup');
+    res.render('signup');
 });
 
 router.post('/', upload.single('profilePicture'), async (req, res) => {
@@ -48,6 +48,14 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       // For example:
       const { username, password, email, phone, location } = req.body;
 
+      //confirm that the username does not yet exist in the database
+      const duplicateUser = await User.findOne({username: username});
+
+      if (duplicateUser != null) {
+        //return res.redirect(400, '/');
+        return res.render('signup', {error: "Username already exists"});
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const userData = {
@@ -64,10 +72,10 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       req.session.username = newUser.username;
 
       // Redirect to the home page after successful signup
-      res.redirect('/');
+      res.redirect(200, '/');
   } catch (error) {
       console.error(error);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send({error: 'Internal Server Error'});
   }
 });
 
