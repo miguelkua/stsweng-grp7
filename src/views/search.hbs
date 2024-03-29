@@ -3,60 +3,79 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Listings</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-... " crossorigin="anonymous"> <!-- Add Font Awesome for icons -->
+    <link rel="stylesheet" href="/css/style.css">
+    <title>Search listing</title>
 </head>
 <body>
-    <h1>Search Listings</h1>
-    <form action="/search/results" method="GET">
-        <label for="query">Search:</label>
-        <input type="text" id="query" name="query" required>
-        <label for="category">Search Category:</label>
-        <select id="category" name="category">
-            <option value="listing">Listings</option>
-            <option value="user">Users</option>
-        </select>
-        <button type="submit">Search</button>
-    </form>
-
+    {{> navbar}}  
+    <div class="container" id="container-search">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <h1 class="text-center">Search Listings</h1>
+          <form action="/search/results" method="GET" class="search-form">
+              <div class="input-group">
+                  <input type="text" id="query" name="query" class="form-control" placeholder="Search..." required>
+                  <select id="category" name="category" class="form-control">
+                      <option value="listing">Listings</option>
+                      <option value="user">Users</option>
+                  </select>
+                  <div class="input-group-append">
+                      <button type="submit" class="btn btn-outline-secondary">
+                        <i class="fas fa-search"></i>
+                      </button>
+                  </div>
+              </div>
+          </form>
+        </div>
+      </div>
     <!-- Handle search results based on category -->
-    {{#if listingResults}}
-        <h2>Listing Results</h2>
-        <ul>
+        {{#if listingResults}}
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">Listing Results</h2>
             {{#each listingResults}}
-                <li>
-                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top" alt="Listing Photo">
-                    <strong>Name:</strong> {{name}}<br>
-                    <strong>Type:</strong> {{type}}<br>
-                    <strong>Price:</strong> ${{price}}<br>
-                    <strong>Description:</strong> {{description}}<br>
-                    <strong>User:</strong> {{user}}<br>
-                    <strong>Location:</strong> {{location}}<br>
-                    <strong>Date Posted:</strong> {{formatDate datePosted}}<br>
-                    <strong>Availability:</strong> {{availability}}<br> <!-- New list item for availability -->
-                    <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
-                        <a href="/listing/{{_id}}" class="btn btn-outline-primary btn-half-width">View</a>
-                    </div>
-                </li>
+            <div class="row mb-3 listing-result">
+            <div class="col-md-3">
+                <img src="data:image/jpeg;base64,{{photos.[0].data}}" alt="{{name}}" class="img-fluid">
+                <a href="/listing/{{_id}}" class="btn btn-primary mt-2">View</a>
+            </div>
+            <div class="col-md-9">
+                <p><strong>Name:</strong> {{name}}</p>
+                <p><strong>Type:</strong> {{type}}</p>
+                <p><strong>Price:</strong> ${{price}}</p>
+                <p><strong>Description:</strong> {{description}}</p>
+                <p><strong>User:</strong> {{user}}</p>
+                <p><strong>Location:</strong> {{location}}</p>
+                <p><strong>Date Posted:</strong> {{formatDate datePosted}}</p>
+                <p><strong>Availability:</strong> {{availability}}</p>
+            </div>
+            </div>
             {{/each}}
-        </ul>
-    {{/if}}
+        </div>
+        {{/if}}
 
-    {{#if userResults}}
-        <h2>User Results</h2>
-        <ul>
+        {{#if userResults}}
+        <div class="container mt-5">
+            <h2 class="text-center mb-4">User Results</h2>
+            <div class="row">
             {{#each userResults}}
-                <li>
-                    <strong>Username:</strong> {{username}}<br>
-                    <strong>Email:</strong> {{email}}<br>
-                    <strong>Location:</strong> {{location}}<br>
-                    <img src="data:image/jpeg;base64,{{profilePicture}}" alt="Profile Image"><br>
-                    <strong>Date Joined:</strong> {{formatDate dateJoined}}<br>
-                    <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
-                        <a href="/profile/{{username}}" class="btn btn-outline-primary btn-half-width">View</a>
+                <div class="col-md-4 mb-4">
+                <div class="user-card text-center">
+                    <img src="data:image/jpeg;base64,{{profilePicture}}" alt="{{username}}" class="img-fluid rounded-circle user-image">
+                    <div class="user-details">
+                    <h3>{{username}}</h3>
+                    <p>Email: {{email}}</p>
+                    <p>Location: {{location}}</p>
+                    <p>Date Joined: {{formatDate dateJoined}}</p>
+                    <a href="/profile/{{username}}" class="btn btn-primary mt-2">View</a>
                     </div>
-                </li>
+                </div>
+                </div>
             {{/each}}
-        </ul>
-    {{/if}}
+            </div>
+            </div>
+        {{/if}}
+
 </body>
 </html>

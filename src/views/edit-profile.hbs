@@ -3,9 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/style.css">
+    <title>{{user.username}} - Edit Profile</title>
 </head>
 <body>
+    {{> navbar}}  
     <h1>Edit Profile</h1>
         <!-- Input fields for editing profile details -->
     <form action="/profile/change-profile-picture" method="POST" enctype="multipart/form-data">

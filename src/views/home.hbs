@@ -4,42 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <title>PCMundo - Browse Second Hand Deals Easily!</title>
 </head>
-<style>
-
-  .custom{
-    margin-bottom: 20px;
-  }
-
-  /* shadow per card */
-  .card{
-    box-shadow: 1.5px 1.5px #d3d2d2;
-  }
-
-  .text-desc{
-    font-size: 1.1rem;
-  }
-  .text-loc{
-    font-size: 0.8rem;
-  }
-  .time-posted{
-    font-size: 0.7rem;
-  }
-
-  #cardimg {
-    height: 200px;
-    max-height: 200px; /* Fixed height for all images */
-    object-fit: cover; /* This will ensure that the aspect ratio is maintained */
-    width: 100%; /* This ensures that your image covers the full width of the card */
-  }
-
-  #cardbody {
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* This will push the text to the top and the button to the bottom */
-  }
-</style>
 <body>
     {{> navbar}}
     
@@ -87,27 +54,45 @@
         <div class="col-md-9">
           <div class="row">
               <!-- Product cards -->
-              {{#each listings}}
-              <div class="col-md-4 custom">
-                <div class="card h-100" id="{{this._id}}">
-                    <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top max-height" alt="Listing Photo" id="cardimg">
-                    <div class="card-body" id="cardbody">
-                        <class class="card-title">{{price}}</class>
-                        <h5 class="card-text">{{name}}</h5>
-                        <p class="text-desc">{{description}}</p>
-                    </div>
-                      <div class="card-footer">
-                        <p class="time-posted">{{formatDate datePosted}}</p>
-                    </div>
-                    <div class="d-flex justify-content-center mt-2"> <!-- Center the button -->
-                        <a href="/listing/{{this._id}}" class="btn btn-outline-primary btn-half-width">View</a>
-                    </div>
-                </div>
-                </div>
-                {{/each}}
-            </div>
-            <!-- Optionally add pagination here -->
+        <!-- Updated Product Card -->
+{{#each listings}}
+<div class="col-md-4 custom">
+  <div class="card h-100">
+    <!-- Item Image -->
+    <a href="/listing/{{this._id}}" class="text-center text-decoration-none">
+      <img src="data:image/jpeg;base64,{{photos.[0].data}}" class="card-img-top p-3" alt="{{name}}">
+    </a>
+    <!-- Item Details -->
+    <div class="card-body text-center">
+      <h5 class="card-title">{{name}}</h5>
+      <p class="card-price">&#8369;{{price}}</p>
+      <p class="card-location">{{location}}</p>
+    </div>
+    <!-- Seller Info -->
+    <div class="card-footer">
+      <div class="user-info">
+        <!-- Clickable seller avatar -->
+        <a href="/profile/{{user.username}}" class="text-decoration-none">
+          <img src="{{user.profilePicture}}" alt="Seller Avatar" class="seller-avatar">
+        </a>
+        <div class="user-details">
+          <!-- Clickable Seller Name and Date -->
+          <a href="/profile/{{user.username}}" class="text-decoration-none">
+            <p class="user-name">{{user.username}}Seller asdasdsaasdasd</p>
+            <p class="time-posted">{{formatDate datePosted}}</p>
+          </a>
         </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+{{/each}}
+
+
+
+      </div>
+  </div>
                 
                 
 
