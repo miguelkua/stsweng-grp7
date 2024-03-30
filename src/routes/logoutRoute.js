@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
       res.status(500).send('Internal Server Error');
     } else {
       // Redirect to the home page after signing out
-      res.redirect('/');
+      res.redirect(302, '/');
     }
   });
 });

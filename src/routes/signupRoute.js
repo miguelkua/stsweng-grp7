@@ -72,7 +72,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       req.session.username = newUser.username;
 
       // Redirect to the home page after successful signup
-      res.redirect(200, '/');
+      res.redirect(200, '');
   } catch (error) {
       console.error(error);
       res.status(500).send({error: 'Internal Server Error'});

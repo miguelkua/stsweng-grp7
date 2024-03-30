@@ -17,11 +17,11 @@ app.use(session({ secret: 'testsecret', resave: false, saveUninitialized: true }
 app.use('/logout', logoutRoute);
 
 describe('GET /logout', () => {
-    test('Goes back to the login apgee', async () => {
+    test('Goes back to the login page', async () => {
       const response = await request(app).get('/logout');
       console.log(response);
       
-      expect(response.statusCode).toBe(200)
+      expect(response.statusCode).toBe(302); //FOUND code
       expect(response.session).toBeFalsy();
       console.log("response.text", response.text);
       

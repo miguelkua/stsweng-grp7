@@ -38,6 +38,11 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
       };
     });
 
+    //error checking
+    if (uploadedImages == null) {
+      return res.render('post-listing', {error: 'No images uploaded alongside listing!'});
+    }
+
     const newListing = new Listing({
       name,
       brand,
