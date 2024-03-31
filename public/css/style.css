@@ -319,3 +319,16 @@ ul {
   height: auto;
 }
 
+.action-buttons .btn.custom-btn {
+  background-color: #1c2e42; /* Button color */
+  color: white; /* Font color */
+  margin-top: 15px; /* Spacing between buttons */
+  border: none; /* Remove border */
+  display: block; /* Make the button expand the full width of the container */
+  width: 100%;
+}
+
+/* Additional styles for the form to remove default form spacing */
+.action-buttons form {
+  margin-bottom: 10px; /* Spacing between buttons */
+}
