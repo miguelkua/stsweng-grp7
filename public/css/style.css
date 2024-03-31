@@ -292,3 +292,7 @@ ul {
   }
   
   /* View cart */
+  .cart-image {
+    max-width: 200px;
+    max-height: 200px;
+}

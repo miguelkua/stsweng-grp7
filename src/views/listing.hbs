@@ -4,41 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/style.css"> <!-- Include your custom CSS file -->
+    <style>
+        /* Add your custom CSS here */
+        body {
+            background-color: #f8f9fa;
+            padding-top: 60px; /* Adjust as per your navbar height */
+            color: #000; /* Set all fonts to black */
+        }
+        .card {
+            box-shadow: none;
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+        }
+        .card-title {
+            font-size: 20px;
+            font-weight:500;
+            margin-bottom: 20px;
+        }
+        .card-img-top {
+            max-width: 400px; /* Limit image width */
+            max-height: 400px; /* Limit image height */
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .card-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+        .list-group-item {
+            font-size: 20px;
+            background-color: transparent;
+            border: none;
+            margin-bottom: 10px;
+        }
+
+        .item-price{
+            font-size:30px;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-right: 10px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .posted-by {
+            margin-top: 20px;
+        }
+        .posted-by a {
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .posted-by a:hover {
+            color: #0056b3;
+        }
+        .label-content {
+            font-size: 15   px; /* Set font size for label content */
+            font-weight: bold;
+        }
+    </style>
     <title>{{listing.name}} - {{user.username}}</title>
 </head>
 <body>
-    {{> navbar}}  
-    <div class="card">
-        {{#each listing.photos}}
-            <img src="data:image/jpeg;base64,{{this.data}}" class="card-img-top" alt="Listing Photo">
-        {{/each}}        
-        <div class="card-body">
-            <h5 class="card-title">{{listing.name}}</h5>
-            <p class="card-text">{{listing.description}}</p>
-            <!-- Render user details -->
-            <p>Posted By: <a href="/profile/{{user.username}}">{{user.username}}</a></p>
-            <p>Email: {{user.email}}</p>
-            <p>Location: {{user.location}}</p>
-            <p>Contact Number: {{user.phone}}</p>
-            <!-- Conditional rendering for edit and delete buttons -->
-            {{#if isCurrentUser}}
-                    <button onclick="window.location.href='/edit-listing/{{listing._id}}'">Edit</button>
-                    <form action="/delete-listing/{{listing._id}}" method="POST">
-                        <button type="submit">Delete</button>
-                    </form>
-            {{/if}}
-            <form id="addToCartForm" action="/add-to-cart/{{listing._id}}" method="POST">
-                <button type="submit">Add to Cart</button>
-            </form>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Your Logo</a>
+        <!-- Add your navbar content here -->
+    </nav>
+    <div class="text-center">
+    {{#each listing.photos}}
+        <img src="data:image/jpeg;base64,{{this.data}}" class="card-img-top" alt="Listing Photo">
+    {{/each}}
+    </div>
+ 
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <p class="card-title">{{listing.name}}</p>
+                        <h5 class="item-price font-weight-bold">PHP {{listing.price}}</h5>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <div class="label-content">Description</div>
+                                <p>{{listing.description}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="label-content">Category</div>
+                                <p>{{listing.category}}</p>
+                            </li>
+                            <li class="list-group-item">
+                                <div class="label-content">Condition</div>
+                                <p>{{listing.condition}}</p>
+                            </li>
+                            <li class="list-group-item">Date Posted: {{formatDate listing.datePosted}}</li>
+                            <li class="list-group-item">Availability: {{listing.availability}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card-footer">
+                    <div class="posted-by">
+                        <p>Posted By: <a href="/profile/{{user.username}}">{{user.username}}</a></p>
+                        <p>Email: {{user.email}}</p>
+                        <p>Location: {{user.location}}</p>
+                        <p>Contact Number: {{user.phone}}</p>
+                    </div>
+                    <div class="actions">
+                        
+                        {{#if isCurrentUser}}
+                            <button onclick="window.location.href='/edit-listing/{{listing._id}}'">Edit</button>
+                            <form action="/delete-listing/{{listing._id}}" method="POST">
+                                <button type="submit">Delete</button>
+                            </form>
+                        {{/if}}
+                        <form id="addToCartForm" action="/add-to-cart/{{listing._id}}" method="POST">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Price: ${{listing.price}}</li>
-            <li class="list-group-item">Category: {{listing.category}}</li>
-            <li class="list-group-item">Condition: {{listing.condition}}</li>
-            <li class="list-group-item">Date Posted: {{formatDate listing.datePosted}}</li>
-            <li class="list-group-item">Availability: {{listing.availability}}</li> <!-- New list item for availability -->
-        </ul>
+        
     </div>
     <script>
         document.getElementById('addToCartForm').addEventListener('submit', function(event) {

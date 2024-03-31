@@ -6,93 +6,48 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <title>{{user.username}} - View Cart</title>
+    <style>
+        /* Custom CSS to vertically align content */
+        .align-middle {
+            vertical-align: middle !important;
+        }
+    </style>
 </head>
 <body>
-<style>
-.card {
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  transition: all 0.3s ease-in-out;
-}
-
-.card:hover {
-  box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-}
-
-.card-img-top {
-  width: 100%;
-  height: 200px; /* or your desired fixed height */
-  object-fit: cover; /* this will cover the area nicely */
-}
-
-.card-title a {
-  color: #007bff; /* Bootstrap primary color */
-  text-decoration: none;
-}
-
-.card-title a:hover {
-  text-decoration: underline;
-}
-
-.card-text {
-  margin-bottom: 0.5rem; /* Spacing between text elements */
-}
-
-/* Style for the 'Remove from Cart' button */
-.btn-danger {
-  color: #fff;
-  background-color: #dc3545; /* Bootstrap danger color */
-  border-color: #dc3545; /* Bootstrap danger color */
-}
-
-.btn-danger:hover {
-  color: #fff;
-  background-color: #c82333; /* Darken on hover */
-  border-color: #bd2130; /* Darken on hover */
-}
-
-/* Spacing for the form inside the card */
-.card form {
-  margin-top: 1rem;
-}
-
-
-</style>
     {{> navbar}}
-{{#if cartItems}}
-  <div class="container mt-5">
-    <h2 class="text-center mb-4">Your Cart</h2>
-    <div class="row">
-      {{#each cartItems}}
-        <div class="col-md-4 mb-4">
-          <div class="card">
-            <!-- Image -->
-            <img src="data:image/jpeg;base64,{{this.photos.[0].data}}" class="card-img-top" alt="{{this.name}}">
-            <div class="card-body">
-              <!-- Listing name and link to listing -->
-              <h5 class="card-title">
-                <a href="/listing/{{this._id}}">{{this.name}}</a>
-              </h5>
-              <!-- Price -->
-              <p class="card-text">${{this.price}}</p>
-              <!-- Seller and link to profile -->
-              <p class="card-text">
-                Seller: <a href="/profile/{{this.user}}">{{this.user}}</a>
-              </p>
-              <!-- Remove from cart button -->
-              <form action="/delete-from-cart/{{this._id}}" method="POST">
-                <button type="submit" class="btn btn-danger btn-sm">Remove from Cart</button>
-              </form>
+    {{#if cartItems}}
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">Your Cart</h2>
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    </thead>
+                    <tbody>
+                        {{#each cartItems}}
+                        <tr>
+                            <td colspan="4"><strong>{{this.name}}</strong></td> <!-- Spanning all columns for the product name -->
+                        </tr>
+                        <tr>
+                            <td class="col-3 px-0 align-middle"><img src="data:image/jpeg;base64,{{this.photos.[0].data}}" alt="{{this.name}}" class="img-fluid cart-image"></td>
+                            <td class="col-3 px-0 seller-info align-middle">From <a href="/profile/{{this.user}}">{{this.user}}</a></td>
+                            <td class="col-3 px-0 align-middle">${{this.price}}</td>
+                            <td class="col-3 px-0 align-middle">
+                                <form action="/delete-from-cart/{{this._id}}" method="POST">
+                                    <button type="submit" class="btn btn-danger btn-sm">Remove from Cart</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
             </div>
-          </div>
         </div>
-      {{/each}}
     </div>
-  </div>
-{{else}}
-  <div class="text-center mt-5">
-    <p>Your cart is empty.</p>
-  </div>
-{{/if}}
-
+    {{else}}
+    <div class="text-center mt-5">
+        <p>Your cart is empty.</p>
+    </div>
+    {{/if}}
 </body>
 </html>
