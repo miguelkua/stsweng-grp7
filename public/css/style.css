@@ -332,3 +332,11 @@ ul {
 .action-buttons form {
   margin-bottom: 10px; /* Spacing between buttons */
 }
+
+.card-img-top {
+  max-width: 400px; /* Limit image width */
+  max-height: 400px; /* Limit image height */
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
