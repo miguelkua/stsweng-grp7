@@ -296,3 +296,26 @@ ul {
     max-width: 200px;
     max-height: 200px;
 }
+
+/* listing view */
+
+.carousel-container {
+  width: 80%;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+}
+
+.imglisting {
+  max-width: 100%;
+  height: auto;
+}
+
