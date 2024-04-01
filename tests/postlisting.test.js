@@ -3,10 +3,9 @@ const request = require('supertest');
 const express = require('express');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
-const User = require('../src/models/user.js');
-const Listing = require('../src/models/listing.js');
 const postListingRoute = require('../src/routes/postListingRoute.js');
 const multer= require('multer');
+const hbs = require('hbs');
 
 
 //explicitly mock the database module
@@ -14,10 +13,13 @@ const multer= require('multer');
 jest.mock('../src/models/user.js', () => ({
     findOne: jest.fn()
 }));
+const User = require('../src/models/user.js');
 
 jest.mock('../src/models/listing.js', () => ({
-    save: jest.fn()
+    save: jest.fn(),
+    create: jest.fn()
 }));
+const Listing = require('../src/models/listing.js');
 
 jest.mock('multer', () => {
     const multer = () => ({
@@ -35,11 +37,23 @@ jest.mock('multer', () => {
           return next()
         }
       },
+      map: () => {
+        return (req, res, next) => {
+          req.files = [
+            {
+            data: '123134432rewfrtyuhbr5678iujbvfer567u8ikjhgfr556785yhh4rwtw45wywheh',
+            contentType: 'image',
+            buffer: Buffer.from('whatever'), // this is required since `formData` needs access to the buffer
+            }
+          ]
+          return next();
+        }
+      }
     })
     multer.memoryStorage = () => jest.fn();
     return multer
-  });
-  map: jest.fn();
+});
+  
 
 const app = express();
 
@@ -75,10 +89,14 @@ describe("Different invalid cases for listing an item.", () => {
         description: "This is a test entry used for jest testing."
     };
 
+    const res = {
+      render: jest.fn()
+    };
+
     beforeEach(() => {
         User.findOne.mockClear();
         Listing.save.mockClear();
-      });
+    });
 
     test("Null listing, should error", async() => {
         //Mock test to test database implementation
@@ -91,13 +109,13 @@ describe("Different invalid cases for listing an item.", () => {
         expect(response.statusCode).toBe(500);
     })
     
-    test("Data does not pass an image in tthe form", async() => {
+    test("Data does not pass an image in the form", async() => {
         //Mock test to test database implementationa
         User.findOne.mockResolvedValue({username: 'admin123'});
         Listing.save.mockResolvedValue(false);
         
         const response = await request(app).post('/post-listing').send(incompleteListing);
-        console.log(response);
+        console.log(response.text);
 
         expect(response.statusCode).toBe(500);
     })
@@ -106,11 +124,12 @@ describe("Different invalid cases for listing an item.", () => {
         //Mock test to test database implementationa
         User.findOne.mockResolvedValue({username: 'admin123'});
         Listing.save.mockResolvedValue(false);
-        multer.map.mockReturnedValue({data: 'asddadasdasdasdasd', contentType: 'image/jpeg'})
-        
-        const response = await request(app).post('/post-listing').send(incompleteListing);
-        console.log(response);
 
+        const response = await request(app).post('/post-listing').send(incompleteListing);
+        
+        
+        //console.log(response);
+        expect(res.render).not.toBeFalsy();
         expect(response.statusCode).toBe(500);
     })
 })

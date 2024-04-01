@@ -21,7 +21,7 @@ router.post('/:listingId', async (req, res) => {
             return res.status(400).json({ error: 'Listing is already in the cart' });
         }
 
-        // Add the listing ID to the user's cart
+        // Add the listing ID to the user's carta
         loggedUser.cart.push(listingId);
         await loggedUser.save();
 

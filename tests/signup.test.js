@@ -14,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: 'testsecret', resave: false, saveUninitialized: true }));
+app.set('view engine', 'hbs');
 
 // Mount the signup route
 app.use('/signup', signupRoute);
@@ -70,6 +71,8 @@ describe('POST /signup', () => {
     const response = await request(app)
       .post('/signup')
       .send(invalidUser);
+
+    console.log(response);
 
     expect(response.status).toBe(400);
     expect(response.text).toBe('Invalid input');
