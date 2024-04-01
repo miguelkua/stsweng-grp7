@@ -73,12 +73,12 @@
       <div class="user-info">
         <!-- Clickable seller avatar -->
         <a href="/profile/{{user.username}}" class="text-decoration-none">
-          <img src="{{user.profilePicture}}" alt="Seller Avatar" class="seller-avatar">
+        <img src="data:image/jpeg;base64, {{user.profilePicture}}" alt="Seller Avatar" class="seller-avatar">
         </a>
         <div class="user-details">
           <!-- Clickable Seller Name and Date -->
           <a href="/profile/{{user.username}}" class="text-decoration-none">
-            <p class="user-name">{{user.username}}Seller asdasdsaasdasd</p>
+            <p class="user-name">{{user.username}}</p>
             <p class="time-posted">{{formatDate datePosted}}</p>
           </a>
         </div>

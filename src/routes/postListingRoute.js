@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.array('photos', 10), async (req, res) => {
   try {
-    const { name, brand, type, price, description } = req.body;
+    const { name, brand, type, price, description, condition } = req.body;
 
     // Get username from the session
     const username = req.session.username;
@@ -38,21 +38,21 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
       };
     });
 
-    const newListing = new Listing({
+    const newListingData = {
       name,
       brand,
       type,
       price,
       description,
+      condition, // Include the condition field
       photos: uploadedImages,
       location: user.location, // Use user's location
       user: username,
       datePosted: new Date(), // Set the current date and time
       availability: 'available', // Set the availability field to 'available'
-    });
-
-    // Save the current date and time to datePosted
-    await newListing.save();
+    };
+    
+    const newListing = await Listing.create(newListingData);
 
     res.render('post-listing', { success: 'Listing created successfully'});
   } catch (error) {

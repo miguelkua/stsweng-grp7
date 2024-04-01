@@ -5,6 +5,12 @@ const listingSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  condition: {
+    type: String,
+    enum: ['brand new', 'second hand', 'refurbished'], // Enumerated values for condition
+    default: 'brand new', // Default condition
+    required: true,
+  },
   brand: {
     type: String,
     required: true,

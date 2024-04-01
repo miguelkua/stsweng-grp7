@@ -43,6 +43,14 @@
         <!-- Label and input field for description -->
         <label for="description">Description:</label>
         <textarea id="description" name="description">{{listing.description}}</textarea>
+        
+        <!-- Label and input field for condition -->
+        <label for="condition">Condition:</label>
+        <select id="condition" name="condition">
+            <option value="brand new" {{#ifCond listing.condition '===' 'brand new'}}selected{{/ifCond}}>Brand New</option>
+            <option value="second hand" {{#ifCond listing.condition '===' 'second hand'}}selected{{/ifCond}}>Second Hand</option>
+            <option value="refurbished" {{#ifCond listing.condition '===' 'refurbished'}}selected{{/ifCond}}>Refurbished</option>
+        </select>
 
         <label for="availability">Availability:</label>
         <select id="availability" name="availability">
