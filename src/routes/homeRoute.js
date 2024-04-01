@@ -20,7 +20,6 @@ router.get('/', async (req, res) => {
       return { ...listing.toObject(), user };
     });
 
-    console.log(populatedListings)
     // If authenticated, render the home template with the username and listings
     // If not authenticated, render the home template without the username but with listings
     res.render('home', { isAuthenticated, listings: populatedListings });
