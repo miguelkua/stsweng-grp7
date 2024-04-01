@@ -120,13 +120,14 @@ describe("Different invalid cases for listing an item.", () => {
         expect(response.statusCode).toBe(500);
     })
 
-    test("Form misses atleast 1 piece of data", async() => {
+    test("Form misses atleast 1 piece of data, in cases that data is sent without the UI", async() => {
         //Mock test to test database implementationa
         User.findOne.mockResolvedValue({username: 'admin123'});
+        Listing.create.mockResolvedValue(null);
         Listing.save.mockResolvedValue(false);
 
         const response = await request(app).post('/post-listing').send(incompleteListing);
-        
+        //console.log(response);
         
         //console.log(response);
         expect(res.render).not.toBeFalsy();

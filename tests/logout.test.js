@@ -16,6 +16,10 @@ app.use(session({ secret: 'testsecret', resave: false, saveUninitialized: true }
 // Mount the login route
 app.use('/logout', logoutRoute);
 
+const req = {
+  session: jest.fn()
+};
+
 describe('GET /logout', () => {
     test('Goes back to the login page', async () => {
       const response = await request(app).get('/logout');
@@ -27,12 +31,19 @@ describe('GET /logout', () => {
       
     });
 
-    /*
+    
     test('In case of error, receive a statuscode of 500', (req) => {
+      
+      /*req.session.destroy.mockImplementation(() => {
+        throw new Error();
+      });*/
+      req.session.mockImplementation(() => {
+        throw new Error();
+      });
 
       const response = request(app).get('/logout');
-
+      expect(req.session.destroy).toHaveBeenCalled();
       expect(response.statusCode).toBe(500);
       expect(response.text).toContain('Internal');
-    })*/
+    })
 });
