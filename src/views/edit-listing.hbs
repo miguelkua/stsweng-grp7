@@ -6,60 +6,100 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
     <title>Edit Listing - {{listing.name}}</title>
+    <style>
+        .custom-file-upload {
+            border: 1px solid #ccc;
+            display: inline-block;
+            padding: 6px 12px;
+            cursor: pointer;
+            border-radius: 20px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        .hidden-file-input {
+            display: none;
+        }
+        .listing-pic {
+            border: 1px solid #ddd; /* Light grey */
+            padding: 5px;
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+        .file-upload-btn {
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 20px;
+            padding: 10px 24px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            display: inline-block;
+        }
+    </style>
 </head>
 <body>
-    {{> navbar}}  
-    <!-- Your edit listing form goes here -->
-    <h1>Edit Listing</h1>
-    <form action="/edit-listing/{{listing._id}}/remove-photos" method="POST">
-        {{#each listing.photos}}
-            <input type="checkbox" name="photoIdsToRemove" value="{{this._id}}">
-            <img src="data:image/jpeg;base64,{{this.data}}" alt="Listing Photo">
-        {{/each}}
-        <button type="submit">Delete Selected Photos</button>
-    </form>
-    <form action="/edit-listing/{{listing._id}}/add-photos" method="POST" enctype="multipart/form-data">
-        <input type="file" name="photosToAdd" multiple accept="image/*">
-        <button type="submit">Add Photos</button>
-    </form>
-    <!-- Form to edit the listing -->
-    <form action="/edit-listing/{{listing._id}}" method="POST">
-        <!-- Label and input field for name -->
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="{{listing.name}}">
-        
-        <!-- Label and input field for brand -->
-        <label for="brand">Brand:</label>
-        <input type="text" id="brand" name="brand" value="{{listing.brand}}">
-        
-        <!-- Label and input field for type -->
-        <label for="type">Type:</label>
-        <input type="text" id="type" name="type" value="{{listing.type}}">
-        
-        <!-- Label and input field for price -->
-        <label for="price">Price:</label>
-        <input type="number" id="price" name="price" value="{{listing.price}}">
-        
-        <!-- Label and input field for description -->
-        <label for="description">Description:</label>
-        <textarea id="description" name="description">{{listing.description}}</textarea>
-        
-        <!-- Label and input field for condition -->
-        <label for="condition">Condition:</label>
-        <select id="condition" name="condition">
-            <option value="brand new" {{#ifCond listing.condition '===' 'brand new'}}selected{{/ifCond}}>Brand New</option>
-            <option value="second hand" {{#ifCond listing.condition '===' 'second hand'}}selected{{/ifCond}}>Second Hand</option>
-            <option value="refurbished" {{#ifCond listing.condition '===' 'refurbished'}}selected{{/ifCond}}>Refurbished</option>
-        </select>
-
-        <label for="availability">Availability:</label>
-        <select id="availability" name="availability">
-            <option value="available" {{#ifCond listing.availability '===' 'available'}}selected{{/ifCond}}>Available</option>
-            <option value="sold" {{#ifCond listing.availability '===' 'sold'}}selected{{/ifCond}}>Sold</option>
-            <option value="reserved" {{#ifCond listing.availability '===' 'reserved'}}selected{{/ifCond}}>Reserved</option>
-        </select>
-
-        <button type="submit">Update Listing</button>
-    </form>
+    {{> navbar}}
+    <div class="container mt-5">
+        <h1 class="text-center mb-4">Edit Listing</h1>
+        <div class="row">
+            <div class="col-md-3 text-center">
+                <form action="/edit-listing/{{listing._id}}/remove-photos" method="POST">
+                    {{#each listing.photos}}
+                        <input type="checkbox" name="photoIdsToRemove" value="{{this._id}}">
+                        <img src="data:image/jpeg;base64,{{this.data}}" alt="Listing Photo" class="listing-pic mb-2">
+                        <br>
+                    {{/each}}
+                    <button type="submit" class="file-upload-btn">Delete Selected Photos</button>
+                </form>
+                <form action="/edit-listing/{{listing._id}}/add-photos" method="POST" enctype="multipart/form-data">
+                    <label for="photosToAdd" class="custom-file-upload">Choose File</label>
+                    <input type="file" id="photosToAdd" name="photosToAdd" multiple accept="image/*" class="hidden-file-input">
+                    <button type="submit" class="file-upload-btn">Add Photos</button>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <form action="/edit-listing/{{listing._id}}" method="POST">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" value="{{listing.name}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="brand">Brand:</label>
+                        <input type="text" id="brand" name="brand" value="{{listing.brand}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="type">Type:</label>
+                        <input type="text" id="type" name="type" value="{{listing.type}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price:</label>
+                        <input type="number" id="price" name="price" value="{{listing.price}}" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="description">Description:</label>
+                        <textarea id="description" name="description" class="form-control">{{listing.description}}</textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="condition">Condition:</label>
+                        <select id="condition" name="condition" class="form-control">
+                            <option value="brand new" {{#ifCond listing.condition '===' 'brand new'}}selected{{/ifCond}}>Brand New</option>
+                            <option value="second hand" {{#ifCond listing.condition '===' 'second hand'}}selected{{/ifCond}}>Second Hand</option>
+                            <option value="refurbished" {{#ifCond listing.condition '===' 'refurbished'}}selected{{/ifCond}}>Refurbished</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="availability">Availability:</label>
+                        <select id="availability" name="availability" class="form-control">
+                            <option value="available" {{#ifCond listing.availability '===' 'available'}}selected{{/ifCond}}>Available</option>
+                            <option value="sold" {{#ifCond listing.availability '===' 'sold'}}selected{{/ifCond}}>Sold</option>
+                            <option value="reserved" {{#ifCond listing.availability '===' 'reserved'}}selected{{/ifCond}}>Reserved</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-block" style="background-color: #1cae42; color: white; border-radius: 20px; padding: 10px 24px;">Update Listing</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
