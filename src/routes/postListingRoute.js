@@ -38,7 +38,12 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
       };
     });
 
-    const newListing = new Listing({
+    //error checking
+    if (uploadedImages == null) {
+      return res.render('post-listing', {error: 'No images uploaded alongside listing!'});
+    }
+
+    const newListing = new Listing ({
       name,
       brand,
       type,
@@ -53,6 +58,7 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
 
     // Save the current date and time to datePosted
     await newListing.save();
+    //await Listing.create(userListing)
 
     res.render('post-listing', { success: 'Listing created successfully'});
   } catch (error) {
