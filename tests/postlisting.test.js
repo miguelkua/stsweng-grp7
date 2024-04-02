@@ -95,13 +95,13 @@ describe("Different invalid cases for listing an item.", () => {
 
     beforeEach(() => {
         User.findOne.mockClear();
-        Listing.save.mockClear();
+        Listing.create.mockClear();
     });
 
     test("Null listing, should error", async() => {
         //Mock test to test database implementation
         User.findOne.mockResolvedValue({username: 'admin123'});
-        Listing.save.mockResolvedValue(false);
+        Listing.create.mockResolvedValue(false);
         
         const response = await request(app).post('/post-listing').send(nullListing);
         //console.log(response);
@@ -109,13 +109,15 @@ describe("Different invalid cases for listing an item.", () => {
         expect(response.statusCode).toBe(500);
     })
     
-    test("Data does not pass an image in the form", async() => {
+    test("Listing errors due to incomplete data", async() => {
         //Mock test to test database implementationa
         User.findOne.mockResolvedValue({username: 'admin123'});
-        Listing.save.mockResolvedValue(false);
+        Listing.create.mockImplementation(() => {
+          throw new Error();
+        });
         
         const response = await request(app).post('/post-listing').send(incompleteListing);
-        console.log(response.text);
+        //console.log(response.text);
 
         expect(response.statusCode).toBe(500);
     })
@@ -123,8 +125,7 @@ describe("Different invalid cases for listing an item.", () => {
     test("Form misses atleast 1 piece of data, in cases that data is sent without the UI", async() => {
         //Mock test to test database implementationa
         User.findOne.mockResolvedValue({username: 'admin123'});
-        Listing.create.mockResolvedValue(null);
-        Listing.save.mockResolvedValue(false);
+        Listing.create.mockResolvedValue(new Error());
 
         const response = await request(app).post('/post-listing').send(incompleteListing);
         //console.log(response);

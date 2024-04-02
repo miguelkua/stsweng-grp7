@@ -42,7 +42,6 @@ describe('GET /login', () => {
     expect(response.status).toBe(200);
     expect(response.text).toContain('Login');
     //console.log("response.text", response.text)
-    res.render
   });
 });
 
@@ -81,7 +80,7 @@ describe('POST /login', () => {
       .post('/login')
       .send({ username: 'testuser', password: 'password' });
 
-    console.log(response);
+    //console.log(response);
 
     expect(response.statusCode).toBe(500);
   });
