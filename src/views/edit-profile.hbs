@@ -36,27 +36,38 @@
             border: none;
             cursor: pointer;
             margin-top: 10px;
+            width: 200px;
             display: inline-block;
+            font-size: 0.8rem;
         }
-        
+                #confirmPhotoButton {
+            display: none; /* Hide the button initially */
+        }
+
+        /* Additional styles for when the button is shown */
+        #confirmPhotoButton.visible {
+            display: block; /* Show the button when a file is selected */
+            /* Add any additional styling for the visible state here */
+        }
+
     </style>
-<body>
-    {{> navbar}}
-    <div class="container mt-5">
-        <h1 class="text-center mb-4">Edit Profile</h1>
-        <div class="row">
-            <div class="col-md-3 text-center">
-    <form action="/profile/change-profile-picture" method="POST" enctype="multipart/form-data">
-         <!-- Display uploaded image -->
-        <img src="data:image/jpeg;base64,{{user.profilePicture}}" alt="Listing Photo" class="profile-pic mb-2">
-        <!-- Custom styled button for file upload -->
-        <label for="file-upload" class="file-upload-btn">Choose File</label>
-        <!-- Hidden file input -->
-        <input type="file" id="file-upload" name="profilePicture" accept="image/*" class="hidden-file-input">
-        <!-- Submit button to upload the new profile picture -->
-        <button type="submit" class="file-upload-btn">Change Profile Picture</button>
-    </form>
-</div>
+    <body>
+        {{> navbar}}
+        <div class="container mt-5">
+            <h1 class="text-center mb-4">Edit Profile</h1>
+            <div class="row">
+                <div class="col-md-3 text-center">
+        <form action="/profile/change-profile-picture" method="POST" enctype="multipart/form-data">
+            <!-- Display uploaded image -->
+            <img src="data:image/jpeg;base64,{{user.profilePicture}}" alt="Listing Photo" class="profile-pic mb-2">
+            <!-- Custom styled button for file upload -->
+            <label for="file-upload" class="file-upload-btn">Choose File</label>
+            <!-- Hidden file input -->
+            <input type="file" id="file-upload" name="profilePicture" accept="image/*" class="hidden-file-input">
+            <!-- Submit button to upload the new profile picture -->
+            <button type="submit" class="file-upload-btn">Change Profile Picture</button>
+        </form>
+        </div>
             <div class="col-md-9">
                 <form action="/profile/edit-profile" method="POST"m>
                     <div class="form-group">
@@ -73,6 +84,35 @@
             </div>
         </div>
     </div>
-    
+        <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('file-upload');
+            var fileInputLabel = document.querySelector('label[for="file-upload"]'); // Get the label for the file input
+
+            fileInput.addEventListener('change', function() {
+                if(fileInput.files.length > 0) {
+                    fileInputLabel.textContent = 'Photo/s Uploaded'; // Change the label text
+                } else {
+                    fileInputLabel.textContent = 'Choose File'; // Change the label text back if no files are selected
+                }
+            });
+        });
+    </script>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('photosToAdd');
+            var confirmButton = document.getElementById('confirmPhotoButton');
+
+            fileInput.addEventListener('change', function() {
+                // Show the button only if files are selected
+                if(fileInput.files.length > 0) {
+                confirmButton.classList.add('visible');
+                } else {
+                confirmButton.classList.remove('visible');
+                }
+            });
+            });
+    </script>
 </body>
 </html>

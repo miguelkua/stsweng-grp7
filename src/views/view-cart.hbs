@@ -5,12 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/style.css">
-    <title>{{user.username}} - View Cart</title>
+    <title>View Cart</title>
     <style>
-        /* Custom CSS to vertically align content */
+        /* Existing styles */
         .align-middle {
             vertical-align: middle !important;
         }
+
+        /* Add new styles for alignment */
+        .table {
+            width: 100%; /* Ensures the table takes the full width */
+            margin-bottom: 0; /* Removes bottom margin for alignment with the cart items */
+        }
+
+        /* If necessary, adjust padding on the cells to match cart items cells */
+        .table td {
+            padding: .75rem; /* Adjust this value to match your cart items' cell padding */
+        }
+
+        /* Ensure the checkout button has the same alignment as your total price */
+        .row .col.text-right {
+            padding-right: 0; /* Adjust this value to align with the total price if needed */
+        }
+
     </style>
 </head>
 <body>
@@ -31,7 +48,7 @@
                         <tr>
                             <td class="col-3 px-0 align-middle"><img src="data:image/jpeg;base64,{{this.photos.[0].data}}" alt="{{this.name}}" class="img-fluid cart-image"></td>
                             <td class="col-3 px-0 seller-info align-middle">From <a href="/profile/{{this.user}}">{{this.user}}</a></td>
-                            <td class="col-3 px-0 align-middle">${{this.price}}</td>
+                            <td class="col-3 px-0 align-middle">&#8369; {{this.price}}</td>
                             <td class="col-3 px-0 align-middle">
                                 <form action="/delete-from-cart/{{this._id}}" method="POST">
                                     <button type="submit" class="btn btn-danger btn-sm">Remove from Cart</button>
@@ -39,6 +56,17 @@
                             </td>
                         </tr>
                         {{/each}}
+                        <tr>
+                            <td class="col-3 px-0 align-middle"></td>
+                            <td class="col-3 px-0 seller-info align-middle">Total Price: </td>
+                            <td class="col-3 px-0 align-middle">&#8369; {{this.price}}</td>
+                            <td class="col-3 px-0 align-middle">
+                                <form action="/checkout/{{this._id}}" method="POST">
+                                    <button type="submit" class="btn btn-success btn-sm">Checkout</button>
+                                </form>
+                            </td>
+                        </tr>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -49,5 +77,8 @@
         <p>Your cart is empty.</p>
     </div>
     {{/if}}
+    <!-- Existing code for cart items table -->
+
+<!-- Add a script to calculate total -->
 </body>
 </html>

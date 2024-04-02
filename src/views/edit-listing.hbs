@@ -7,15 +7,6 @@
     <link rel="stylesheet" href="/css/style.css">
     <title>Edit Listing - {{listing.name}}</title>
     <style>
-        .custom-file-upload {
-            border: 1px solid #ccc;
-            display: inline-block;
-            padding: 6px 12px;
-            cursor: pointer;
-            border-radius: 20px;
-            background-color: #4CAF50;
-            color: white;
-        }
         .hidden-file-input {
             display: none;
         }
@@ -35,7 +26,56 @@
             cursor: pointer;
             margin-top: 10px;
             display: inline-block;
+            width: 200px;
+            font-size: 0.8rem;
         }
+
+        /* Add this to your existing CSS */
+        .form-button-group {
+            display: flex;
+            justify-content: space-between; /* This will ensure the buttons have equal spacing */
+            align-items: center;
+        }
+
+        .file-upload-btn, .confirm-upload-btn {
+            flex: 1; /* This will ensure the buttons have equal width */
+            margin: 5px; /* This will ensure there is a small space between the buttons */
+            /* Remove margin-top from .file-upload-btn if you add this class */
+        }
+
+        /* This class will be toggled by JavaScript to indicate a file is selected */
+        .file-selected {
+            background-color: #388E3C; /* Darker green for confirmation */
+        }
+
+                /* Initially hide the confirm button */
+        #confirmPhotoButton {
+            display: none; /* Hide the button initially */
+        }
+
+        /* Additional styles for when the button is shown */
+        #confirmPhotoButton.visible {
+            display: block; /* Show the button when a file is selected */
+            /* Add any additional styling for the visible state here */
+        }
+
+        /* Updated styles for buttons and label */
+        .photo-button-container .file-upload-btn, 
+        .photo-button-container label.file-upload-btn {
+            display: block; /* Change display to block for full width */
+            width: 100%; /* Full width to match container */
+            box-sizing: border-box; /* Ensure padding and border are included in width */
+            margin-top: 10px; /* Consistent margin for spacing */
+            text-align: center; /* Center the text inside the button */
+        }
+
+        /* Adjust the visibility of the confirm button */
+        #confirmPhotoButton.visible {
+            display: block; /* Show the button when a file is selected */
+            width: 100%; /* Match the width of other buttons */
+            margin-top: 10px; /* Consistent margin for spacing */
+        }
+
     </style>
 </head>
 <body>
@@ -43,7 +83,7 @@
     <div class="container mt-5">
         <h1 class="text-center mb-4">Edit Listing</h1>
         <div class="row">
-            <div class="col-md-3 text-center">
+            <div class="col-md-3 text-center photo-button-container">
                 <form action="/edit-listing/{{listing._id}}/remove-photos" method="POST">
                     {{#each listing.photos}}
                         <input type="checkbox" name="photoIdsToRemove" value="{{this._id}}">
@@ -52,11 +92,14 @@
                     {{/each}}
                     <button type="submit" class="file-upload-btn">Delete Selected Photos</button>
                 </form>
+
+
                 <form action="/edit-listing/{{listing._id}}/add-photos" method="POST" enctype="multipart/form-data">
-                    <label for="photosToAdd" class="custom-file-upload">Choose File</label>
+                    <label for="photosToAdd" class="file-upload-btn">Choose File</label>
                     <input type="file" id="photosToAdd" name="photosToAdd" multiple accept="image/*" class="hidden-file-input">
-                    <button type="submit" class="file-upload-btn">Add Photos</button>
+                    <button type="submit" id="confirmPhotoButton" class="file-upload-btn">Confirm New Photo/s</button>
                 </form>
+
             </div>
             <div class="col-md-9">
                 <form action="/edit-listing/{{listing._id}}" method="POST">
@@ -101,5 +144,37 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('photosToAdd');
+            var fileInputLabel = document.querySelector('label[for="photosToAdd"]'); // Get the label for the file input
+
+            fileInput.addEventListener('change', function() {
+                if(fileInput.files.length > 0) {
+                    fileInputLabel.textContent = 'Photo/s Uploaded'; // Change the label text
+                } else {
+                    fileInputLabel.textContent = 'Choose File'; // Change the label text back if no files are selected
+                }
+            });
+        });
+    </script>
+
+    <script>
+            document.addEventListener('DOMContentLoaded', function() {
+            var fileInput = document.getElementById('photosToAdd');
+            var confirmButton = document.getElementById('confirmPhotoButton');
+
+            fileInput.addEventListener('change', function() {
+                // Show the button only if files are selected
+                if(fileInput.files.length > 0) {
+                confirmButton.classList.add('visible');
+                } else {
+                confirmButton.classList.remove('visible');
+                }
+            });
+            });
+    </script>
+
+
 </body>
 </html>
