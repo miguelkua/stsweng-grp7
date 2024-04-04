@@ -41,7 +41,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
         profilePicture = defaultProfilePicture;
       } else {
         // Convert the uploaded file to base64
-        const profilePicture = req.file.buffer.toString('base64');
+        profilePicture = req.file.buffer.toString('base64');
       }
 
       // Other code to save the profile picture to the user data
@@ -53,7 +53,7 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       if(checkduplicate != null) {
         //res.status(400); //bad request code
         res.status(400);
-        return res.render('/signup', {error: "Username already exists!"});
+        return res.render('signup', {error: "Username already exists!"});
       }
 
       const hashedPassword = await bcrypt.hash(password, 10);
