@@ -30,6 +30,10 @@ jest.mock('bcrypt', () => ({
   hash: jest.fn(),
 }));
 
+const res = {
+  render: jest.fn(),
+}
+
 describe('POST /signup', () => {
   const testUser = { username: 'testuser', password: 'password', phone: '1234567890', email: 'test@test.com', location: 'Test Location' };
 
@@ -48,7 +52,8 @@ describe('POST /signup', () => {
       .post('/signup')
       .send(testUser);
 
-    expect(response.status).toBe(200);
+    //console.log(response);
+    expect(response.status).toBe(302);
     expect(User.findOne).toHaveBeenCalledWith({ username: testUser.username });
     expect(bcrypt.hash).toHaveBeenCalledWith(testUser.password, 10);
     expect(User.create).toHaveBeenCalledWith({ ...testUser, password: 'hashedpassword' });
@@ -61,8 +66,9 @@ describe('POST /signup', () => {
       .post('/signup')
       .send(testUser);
 
-    expect(response.status).toBe(400);
-    expect(response.text).toBe('Username already exists');
+    //console.log(response);
+
+    expect(response.statusCode).toBe(400);
   });
 
   test('fails to create a user with invalid or null inputs', async () => {

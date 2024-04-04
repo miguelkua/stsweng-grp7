@@ -48,6 +48,14 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
       // For example:
       const { username, password, email, phone, location } = req.body;
 
+      const checkduplicate = await User.findOne({username: username});
+
+      if(checkduplicate != null) {
+        //res.status(400); //bad request code
+        res.status(400);
+        return res.render('/signup', {error: "Username already exists!"});
+      }
+
       const hashedPassword = await bcrypt.hash(password, 10);
 
       const userData = {
