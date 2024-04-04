@@ -18,6 +18,13 @@
                 {{{success}}}
                 </div>
                 {{/if}}
+
+                {{#if error}}
+                <div class="alert alert-danger" role="alert">
+                {{{error}}}
+                </div>
+                {{/if}}
+                
                 <form action="/post-listing" method="post" enctype="multipart/form-data">
                     <div class="form-group">
                         <label for="name">Name:</label>

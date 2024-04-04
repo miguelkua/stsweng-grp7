@@ -7,10 +7,7 @@ const User = require('../models/user'); // Import the User model
 // Multer middleware for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024, // 5 MB limit per file
-  },
+  storage: storage
 });
 
 // GET route for displaying the post listing page
@@ -37,6 +34,14 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
         contentType: file.mimetype,
       };
     });
+
+    // Check file sizes
+    const maxFileSize = 5 * 1024 * 1024; // 5 MB
+    for (const file of req.files) {
+      if (file.size > maxFileSize) {
+        return res.render('post-listing', { error: 'File size exceeds the limit' });
+      }
+    }
 
     const newListingData = {
       name,
