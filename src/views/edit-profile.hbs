@@ -67,6 +67,20 @@
             <!-- Submit button to upload the new profile picture -->
             <button type="submit" class="file-upload-btn">Change Profile Picture</button>
         </form>
+        {{#if error}}
+        <div class="alert alert-danger" role="alert">
+            {{#ifCond error "===" "FileSizeExceeded"}}
+                Uploaded profile picture filesize is above 5MB
+            {{/ifCond}}
+            {{#ifCond error "===" "NoFileUploaded"}}
+                No File Uploaded
+            {{else}}
+                {{{error}}}
+            {{/ifCond}}
+        </div>
+        {{/if}}
+
+        
         </div>
             <div class="col-md-9">
                 <form action="/profile/edit-profile" method="POST"m>

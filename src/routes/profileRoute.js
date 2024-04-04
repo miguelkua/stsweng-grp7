@@ -8,10 +8,7 @@ const multer = require('multer');
 // Set up Multer middleware for handling file uploads
 const storage = multer.memoryStorage();
 const upload = multer({
-  storage: storage,
-  limits: {
-    fileSize: 5 * 1024 * 1024 // 5 MB limit per file
-  }
+  storage: storage
 });
 
 // Route to handle changing the profile picture
@@ -19,9 +16,13 @@ router.post('/change-profile-picture', upload.single('profilePicture'), async (r
   try {
     // Check if a file was uploaded
     if (!req.file) {
-      return res.status(400).json({ error: 'No file uploaded' });
+      return res.redirect('/profile/edit-profile?error=NoFileUploaded');
     }
 
+    // Check if file size exceeds the limit
+    if (req.file.size > 5 * 1024 * 1024) {
+      return res.redirect('/profile/edit-profile?error=FileSizeExceeded');
+    }
     // Get the user from the session or wherever it's stored
     const loggedInUser = res.locals.logged_user; // Example: req.user if using Passport.js
     // Update the user's profile picture in the database
@@ -47,7 +48,10 @@ router.get('/edit-profile', async (req, res) => {
       return res.redirect('/login');
     }
 
-    res.render('edit-profile', { user: loggedUser });
+    // Get the error message from query parameters, if any
+    const errorMessage = req.query.error;
+
+    res.render('edit-profile', { user: loggedUser, error: errorMessage });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
