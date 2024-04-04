@@ -82,6 +82,6 @@ describe('POST /signup', () => {
     //console.log(response);
 
     expect(response.status).toBe(400);
-    expect(response.error).toContain('cannot POST'); //this means that it reaches the render but fails since view-engine is not mocked
+    expect(response.error.message).toContain('cannot POST'); //this means that it reaches the render but fails since view-engine is not mocked
   });
 });
