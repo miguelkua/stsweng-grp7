@@ -78,7 +78,7 @@ describe('POST /signup', () => {
       .post('/signup')
       .send(invalidUser);
 
-    console.log(response);
+    //console.log(response);
 
     expect(response.status).toBe(400);
     expect(response.text).toBe('Invalid input');
