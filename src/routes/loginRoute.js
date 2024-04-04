@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
       res.redirect('/');
     } else {
       // Send Bootstrap alert for invalid login details
+      res.status(400);
       return res.render('login', { error: 'Invalid Login Details' });
     }
   } catch (e) {

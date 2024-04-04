@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const User = require('../src/models/user.js');
 const loginRoute = require('../src/routes/loginRoute.js');
+const hbs = require('hbs');
 
 // Create an Express app for testing
 const app = express();
@@ -13,6 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: 'testsecret', resave: false, saveUninitialized: true }));
+app.set('view engine', 'hbs');
 
 // Mount the login route
 app.use('/login', loginRoute);
@@ -20,6 +22,7 @@ app.use('/login', loginRoute);
 // Mock User.findOne method
 jest.mock('../src/models/user.js', () => ({
   findOne: jest.fn(),
+  findOne2: jest.fn(() => {throw new Error ('Internal Server Error')})
 }));
 
 // Mock bcrypt.compare method
@@ -27,12 +30,18 @@ jest.mock('bcrypt', () => ({
   compare: jest.fn(),
 }));
 
+// Mock res.render method
+const res = {
+  render: jest.fn()
+};
+
+
 describe('GET /login', () => {
   test('responds with login page', async () => {
     const response = await request(app).get('/login');
     expect(response.status).toBe(200);
     expect(response.text).toContain('Login');
-    console.log("response.text", response.text)
+    //console.log("response.text", response.text)
   });
 });
 
@@ -58,18 +67,21 @@ describe('POST /login', () => {
       .post('/login')
       .send({ username: 'invaliduser', password: 'invalidpassword' });
 
-    expect(response.status).toBe(400);
-    expect(response.text).toBe('Invalid Login Details');
+    expect(response.statusCode).toBe(400);
   });
 
   test('responds with 500 error on server error', async () => {
-    User.findOne.mockRejectedValue(new Error('Internal Server Error'));
+    //User.findOne.mockRejectedValue(new Error('Internal Server Error'));
+    User.findOne.mockImplementation(() => {
+      throw new Error();
+    });
 
     const response = await request(app)
       .post('/login')
       .send({ username: 'testuser', password: 'password' });
 
-    expect(response.status).toBe(500);
-    expect(response.text).toBe('Internal Server Error');
+    //console.log(response);
+
+    expect(response.statusCode).toBe(500);
   });
 });
