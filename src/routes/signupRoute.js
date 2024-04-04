@@ -40,6 +40,10 @@ router.post('/', upload.single('profilePicture'), async (req, res) => {
         // Use the default profile picture if no file was uploaded
         profilePicture = defaultProfilePicture;
       } else {
+        //check if the limit is exceeded
+        if(req.file.buffer.byteLength >= (5 * 1024 * 1024)) {
+          return res.render('signup', {error: "Uploaded profile picture filesize is above 5 MB."})
+        }
         // Convert the uploaded file to base64
         profilePicture = req.file.buffer.toString('base64');
       }
