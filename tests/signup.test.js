@@ -30,6 +30,7 @@ jest.mock('bcrypt', () => ({
   hash: jest.fn(),
 }));
 
+
 const res = {
   render: jest.fn(),
 }

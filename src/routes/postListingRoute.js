@@ -32,9 +32,6 @@ router.post('/', upload.array('photos', 10), async (req, res) => {
     }
       
     const uploadedImages = req.files.map(file => {
-      if(req.files.Buffer.byteLength >= (5 * 1024 * 1024)) {
-        return res.render('post-listing', {error: "File size is too large (over 5 MB)."});
-      }
       return {
         data: file.buffer.toString('base64'),
         contentType: file.mimetype,
