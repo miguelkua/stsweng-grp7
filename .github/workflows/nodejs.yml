@@ -6,8 +6,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - main
-      - develop2
+      [main, develop2]
 
   
 
