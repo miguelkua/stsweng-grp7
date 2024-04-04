@@ -1,67 +1,47 @@
 const request = require('supertest');
 const express = require('express');
 const session = require('express-session');
-const multer = require('multer');
 const profileRoute = require('../src/routes/profileRoute.js');
 
+// Mock User model
 jest.mock('../src/models/user.js', () => ({
-    findOne: jest.fn(),
-    save: jest.fn()
+  findOne: jest.fn()
 }));
-const User = require('../src/models/user');
+const User = require('../src/models/user.js');
+
+// Mock Listing model
+jest.mock('../src/models/listing.js', () => ({
+  save: jest.fn(),
+  find: jest.fn(),
+  create: jest.fn()
+}));
+const Listing = require('../src/models/listing.js');
 
 const app = express();
 
+// Set up the Express session middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(session({ secret: 'testsecret', resave: false, saveUninitialized: true }));
+app.set('view engine', 'hbs');
+
+// Mount the profile router
 app.use('/profile', profileRoute);
 
-describe("Cases for profile", () => {
+describe('Profile Router', () => {
+  test('GET /profile/:username should respond with status code 500 if User.findOne throws an error', async () => {
+    User.findOne.mockRejectedValue(new Error('Database Error'));
+    const response = await request(app).get('/profile/testuser');
 
-    const loggedInUser = {
-        username: 'testuser',
-        location: 'Test Location',
-        phone: '1234567890',
-        profilePicture: 'sampleProfilePicture.jpg'
-    };
+    expect(response.status).toBe(500);
 
-    beforeEach(() => {
-        User.findOne.mockClear();
-        User.save.mockClear();
-    });
+  });
 
-    test("Edit profile information with valid login", async () => {
-        User.findOne.mockResolvedValue(loggedInUser);
+  test('GET /profile/:username should respond with status code 404 if user is not found', async () => {
+    User.findOne.mockResolvedValue(null);
+    const response = await request(app).get('/profile/nonexistentuser');
 
-        const updatedProfile = {
-            location: 'New Location',
-            phone: '0987654321',
-            profilePicture: 'sampleProfilePicture.jpg'
-        };
+    expect(response.status).toBe(404);
+  });
 
-        const response = await request(app)
-            .post('/profile/edit-profile')
-            .send(updatedProfile);
-
-        expect(response.statusCode).toBe(302);
-        expect(User.save).toHaveBeenCalledWith(updatedProfile);
-    });
-
-    test("Attempt to update profile without being logged in", async () => {
-        User.findOne.mockResolvedValue(null);
-
-        const updatedProfile = {
-            location: 'New Location',
-            phone: '0987654321',
-            profilePicture: 'newProfilePicture.jpg'
-        };
-
-        const response = await request(app)
-            .post('/profile/edit-profile')
-            .send(updatedProfile);
-
-        expect(response.statusCode).toBe(302); // redirected to /login
-        expect(User.save).not.toHaveBeenCalled();
-    });
 });
